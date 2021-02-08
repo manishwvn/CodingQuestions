@@ -5,16 +5,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def maxDepth(self, root: TreeNode) -> int:
-        
-        if root == None:
+    def maxDepth(self, root):
+        if root is None:
             return 0
         
-        if root.left == None and root.right == None:
-            return 1
-        
-        leftDepth =  self.maxDepth(root.left)
-        rightDepth = self.maxDepth(root.right)
-        
-        return leftDepth + 1 if leftDepth > rightDepth else rightDepth + 1
+        depth = 0
+        level = [root]
+        while level:
+            depth += 1
+            queue = []
+            for ele in level:
+                if ele.left:
+                    queue.append(ele.left)
+                if ele.right:
+                    queue.append(ele.right)
+            level = queue
+            
+        return depth
         
