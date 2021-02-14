@@ -4,16 +4,41 @@
 #         self.val = val
 #         self.next = next
 class Solution:
+    def reverse(self, head):
+        prev = None
+        
+        while head:
+            nxt = head.next
+            head.next = prev
+            prev = head
+            head = nxt
+            
+        return prev
+    
+    def middle(self, head):
+        slow = head
+        fast = head
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+        return slow
+    
     def isPalindrome(self, head: ListNode) -> bool:
         
-        result = []
+        fast = head
+        slow = self.middle(head)
+        slow = self.reverse(slow)
         
-        temp = head
-        while(temp is not None):
-            result.append(temp.val)
-            temp = temp.next
+        while slow:
+            if slow.val != fast.val:
+                return False
             
+            slow = slow.next
+            fast = fast.next
             
-        return result == result[::-1]
-            
+        return True
+        
+        
         
