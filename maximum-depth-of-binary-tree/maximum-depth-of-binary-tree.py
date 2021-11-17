@@ -5,21 +5,16 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def maxDepth(self, root):
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        
+        
         if root is None:
             return 0
         
-        depth = 0
-        level = [root]
-        while level:
-            depth += 1
-            queue = []
-            for ele in level:
-                if ele.left:
-                    queue.append(ele.left)
-                if ele.right:
-                    queue.append(ele.right)
-            level = queue
+        else:
+            leftH = self.maxDepth(root.left)
+            rightH = self.maxDepth(root.right)
             
-        return depth
+        return max(leftH, rightH) + 1
+            
         
