@@ -20,19 +20,8 @@ class Solution:
             if char != "#":
                 stack2.append(char)
                 
-#         for char in stack1:
-#             if char == "#":
-#                 stack1.pop()
+
         
-#         for char in stack2:
-#             if char == "#":
-#                 stack2.pop()
-                
-        print(stack1)
-        print(stack2)
-        
-        if stack1 == stack2:
-            return True
-        else:
-            return False
+        return stack1 == stack2
+            
         
