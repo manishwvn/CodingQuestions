@@ -1,32 +1,56 @@
 class MyQueue:
 
     def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
+        self.q_stack = []
+        self.temp_stack = []
+        
 
     def push(self, x: int) -> None:
-        self.stack1.append(x)
+        self.q_stack.append(x)
+        print(self.q_stack)    
         
 
     def pop(self) -> int:
-        n = len(self.stack1) - 1
+        front = None
         
-        for i in range(n):
-            self.stack2.append(self.stack1.pop())
+        while self.q_stack:
+            if len(self.q_stack) == 1:
+                front = self.q_stack[-1]
+                self.q_stack.pop()
+                break
+            popped = self.q_stack.pop()
+            self.temp_stack.append(popped)
             
-        ele = self.stack1.pop()
-        for i in range(n):
-            self.stack1.append(self.stack2.pop())
-            
-        return ele
-            
+                
+        while self.temp_stack:
+            popped = self.temp_stack.pop()
+            self.q_stack.append(popped)
         
-
+        print(self.q_stack)
+        return front
+        
+        
     def peek(self) -> int:
-        return self.stack1[0]
+        peek_val = None
+        while self.q_stack:
+            if len(self.q_stack) == 1:
+                peek_val = self.q_stack[-1]
+                break
+            popped = self.q_stack.pop()
+            self.temp_stack.append(popped)
+        
+        while self.temp_stack:
+            popped = self.temp_stack.pop()
+            self.q_stack.append(popped)
+        
+        print(self.q_stack)
+        return peek_val
+                
+        
 
     def empty(self) -> bool:
-        return len(self.stack1) == 0
+        print(self.q_stack)
+        return False if self.q_stack else True
         
 
 
