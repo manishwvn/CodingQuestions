@@ -4,8 +4,11 @@ class Solution:
         if x == 0:
             return 0
         
+        if x == 1:
+            return 1
+        
         ans = -1
-        start, end = 1, x
+        start, end = 1, x // 2
         
         while start <= end:
             mid = (start + end) // 2
