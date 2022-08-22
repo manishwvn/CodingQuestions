@@ -2,9 +2,6 @@ class Solution:
     def missingNumber(self, nums: List[int]) -> int:
         
         #binary search approach
-        #[0, 1, 3]
-        #nums[m] = t
-        
         nums.sort()
         l, r = 0, len(nums) - 1
         ans = -1
