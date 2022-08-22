@@ -1,32 +1,19 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         
-        def bs(nums, target):
-            l, r = 0, len(nums) - 1
-            
-            while l <= r:
-                m = (l + r) // 2
-                if nums[m] == target:
-                    return True
-                elif target > nums[m]:
-                    l = m + 1
-                    
-                else:
-                    r = m - 1
-                    
-            return False
+        m, n = len(matrix), len(matrix[0])
+        r, c = m - 1, 0
         
-        for i in range(len(matrix)):
-            
-            is_val = bs(matrix[i], target)
-            if is_val:
+        while r >= 0 and c < n:
+            if matrix[r][c] == target:
                 return True
-            else:
-                continue
-            return False
             
-            
+            if matrix[r][c] > target:
+                r -= 1
                 
+            if matrix[r][c] < target:
+                c += 1
                 
+        return False
                 
         
