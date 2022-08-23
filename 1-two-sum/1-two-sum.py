@@ -4,8 +4,8 @@ class Solution:
         hm = {}
         
         for i in range(len(nums)):
-            j = target - nums[i]
-            if j in hm:
-                return [i, nums.index(j)]
+            sec = target - nums[i]
+            if sec in hm:
+                return [i, hm[sec]]
             else:
-                hm[nums[i]] = True
+                hm[nums[i]] = i
