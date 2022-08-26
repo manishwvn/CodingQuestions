@@ -12,9 +12,7 @@ class Solution:
         
         for i in range(1, n+1):
             for j in range(1, m+1):
-                if j < coins[i - 1]:
-                    dp[j] = dp[j]
-                else:
+                if j >= coins[i - 1]:
                     dp[j] = dp[j] + dp[j - coins[i - 1]]
                     
         return dp[-1]
