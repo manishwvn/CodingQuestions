@@ -1,19 +1,18 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
         
-        if len(s) == 1 and len(t) == 1:
-            return True
-        
-        s_map, t_map = {},{}        
+        if len(s) != len(t):
+            return False
+
+        hm1, hm2 = {}, {}
         for i in range(len(s)):
-            s_map[s[i]] = i
-        
-        for i in range(len(t)):
-            t_map[t[i]] = i
-            
-        print(s_map.values())
-        print(t_map.values())
-        return list(s_map.values()) == list(t_map.values())
+            c1, c2 = s[i], t[i]
+            if (c1 in hm1 and hm1[c1] != c2) or (c2 in hm2 and hm2[c2] != c1):
+                return False
+            hm1[c1] = c2
+            hm2[c2] = c1
+
+        return True
             
 
         
