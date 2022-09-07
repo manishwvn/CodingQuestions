@@ -11,9 +11,11 @@ class Solution:
             if not node:
                 return
             
-            helper(node.left, res)
+            if node.left:
+                helper(node.left, res)
             res.append(node.val)
-            helper(node.right, res)
+            if node.right:
+                helper(node.right, res)
             return res
             
         
