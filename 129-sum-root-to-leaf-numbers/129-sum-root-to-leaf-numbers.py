@@ -10,21 +10,16 @@ class Solution:
         if not root:
             return 0
         
-        global sum_
-        sum_ = 0
-        curr = 0
         def helper(node, curr):
-            global sum_
             if not node:
-                return
+                return 0
             
+            curr = curr * 10 + node.val
             if not node.left and not node.right:
-                sum_ += curr * 10 + node.val
-                
-            helper(node.left, curr * 10 + node.val)
-            helper(node.right, curr * 10 + node.val)
+                return curr
             
+            return helper(node.left, curr) + helper(node.right, curr)
         
-        helper(root, curr)
-        return sum_
-        
+        return helper(root, 0)
+            
+    
