@@ -24,8 +24,9 @@ class Solution:
                 return
             
             prev = node
-            if node.right:
-                helper(node.right)
+            if flag:
+                if node.right:
+                    helper(node.right)
                 
         
         helper(root)
