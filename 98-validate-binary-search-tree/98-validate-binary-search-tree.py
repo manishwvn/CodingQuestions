@@ -7,34 +7,25 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
-        global prev, flag
-        prev, flag = None, True
+    
+        global prev
+        prev = None
         
         def helper(node):
-            global prev, flag
+            global prev
             
             if not node:
-                return 
+                return True
             
-            print(node.val)
             
-            if flag:
-                if node.left:
-                    helper(node.left)
+            if not helper(node.left):
+                return False
                 
             if prev and prev.val >= node.val:
-                flag = False
-                return
+                return False
             
             prev = node
-            if flag:
-                if node.right:
-                    helper(node.right)
-                
+            return helper(node.right)
         
-        helper(root)
-        return flag
-    
-    
-        
+        return helper(root)
         
