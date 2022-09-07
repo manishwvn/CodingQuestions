@@ -16,8 +16,11 @@ class Solution:
             if not node:
                 return 
             
-            if node.left:
-                helper(node.left)
+            print(node.val)
+            
+            if flag:
+                if node.left:
+                    helper(node.left)
                 
             if prev and prev.val >= node.val:
                 flag = False
