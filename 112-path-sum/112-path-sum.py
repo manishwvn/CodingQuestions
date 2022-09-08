@@ -12,17 +12,18 @@ class Solution:
         if not root:
             return False
         
-        stack = [[root, root.val]]
+        stack = [[root, 0]]
         while stack:
             node, currSum = stack.pop()
             
+            currSum += node.val
             if not node.left and not node.right and currSum == targetSum:
                 return True
             
             if node.left:
-                stack.append([node.left, currSum + node.left.val])
+                stack.append([node.left, currSum])
             if node.right:
-                stack.append([node.right, currSum + node.right.val])
+                stack.append([node.right, currSum])
                 
         return False
             
