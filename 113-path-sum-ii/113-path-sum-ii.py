@@ -7,6 +7,7 @@
 from copy import deepcopy
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        #efficient approach - backtraction
         
         def helper(node, currsum, path, target):
             nonlocal res
@@ -15,18 +16,21 @@ class Solution:
                 return 
             
             currsum += node.val
+            #action
             path.append(node.val)
             
             if not node.left and not node.right and currsum == target:
-                res.append(path)
-                
+                res.append(deepcopy(path))
+            
+            #recursion
             if node.left:
-                helper(node.left, currsum, deepcopy(path), target)
+                helper(node.left, currsum, path, target)
                 
             if node.right:
-                helper(node.right, currsum, deepcopy(path), target)
+                helper(node.right, currsum, path, target)
             
-        
+            #backtrack
+            path.pop()
         res = []
         helper(root, 0, [], targetSum)
         return res
