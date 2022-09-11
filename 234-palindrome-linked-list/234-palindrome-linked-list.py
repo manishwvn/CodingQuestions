@@ -6,25 +6,40 @@
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         
-        if head and head.next is None:
+        if not head or not head.next:
             return True
         
-        stack = []
+        # middle of LL
+        slow, fast = head, head
         
-        node = head
-        while node:
-            stack.append(node.val)
-            node = node.next
+        while fast.next is not None and fast.next.next is not None:
+            fast = fast.next.next
+            slow = slow.next
             
-        node = head
-        while stack:
-            ele = stack.pop()
-            if ele != node.val:
-                return False
+        mid = slow
+        
+        #reverse from mid
+        prev, curr = None, mid.next
+        while curr:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
             
-            node = node.next
-                
-        return True
+        
+        #two pointer approach
+        res = True
+        start, end = head, prev
+        while start and end:
+            if start.val != end.val:
+                res = False
+            start = start.next
+            end = end.next
             
+        return res
+    
+    #T.C. O(n)
+    #S.C. O(1)
             
+        
         
