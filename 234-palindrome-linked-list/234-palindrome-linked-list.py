@@ -28,15 +28,14 @@ class Solution:
             
         
         #two pointer approach
-        res = True
         start, end = head, prev
         while start and end:
             if start.val != end.val:
-                res = False
+                return False
             start = start.next
             end = end.next
             
-        return res
+        return True
     
     #T.C. O(n)
     #S.C. O(1)
