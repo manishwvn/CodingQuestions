@@ -29,6 +29,8 @@ class Solution:
                     if (r >= 0 and r < m) and (c >=0 and c < n) and (grid[r][c] == 1):
                         grid[r][c] = 2
                         fresh -= 1
+                        if fresh == 0:
+                            return time + 1
                         queue.append([r, c])
                         
             time += 1
