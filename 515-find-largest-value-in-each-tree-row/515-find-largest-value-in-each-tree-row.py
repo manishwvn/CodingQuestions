@@ -19,22 +19,27 @@ class Solution:
         result = []
         
         while queue:
-            temp = []
+            # temp = []
             max_val = None
             size = len(queue)
-            for i in range(size):
-                temp.append(queue[i].val)
+            # for i in range(size):
+            #     temp.append(queue[i].val)
                 
-            max_val = max(temp)
-            result.append(max_val)
+            # max_val = max(temp)
+            # result.append(max_val)
             
             for _ in range(size):
                 node = queue.popleft()
                 
+                if max_val == None or node.val >= max_val:
+                    max_val = node.val
+            
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
+            
+            result.append(max_val)
                     
         return result
             
