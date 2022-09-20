@@ -2,7 +2,8 @@ from copy import deepcopy
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         
-        #unoptimized
+        #backtracking
+        
         """
         n = number of elems
         m = target
@@ -17,7 +18,7 @@ class Solution:
         def helper(candidates, amount, path, i):
             #base
             if amount == 0:
-                result.append(path)
+                result.append(path.copy())
                 return
             
             if amount < 0 or i == len(candidates):
@@ -25,11 +26,18 @@ class Solution:
             
             #logic
             #not choose
-            helper(candidates, amount, deepcopy(path), i + 1)
+            helper(candidates, amount, path, i + 1)
             
             #choose
+            
+            #action
             path.append(candidates[i])
-            helper(candidates, amount - candidates[i], deepcopy(path), i)
+            
+            #recursion
+            helper(candidates, amount - candidates[i], path, i)
+            
+            #backtrack
+            path.pop()
         
         helper(candidates, target, [], 0)
         return result
