@@ -2,7 +2,7 @@ from copy import deepcopy
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         
-        #for loop based recursion and backtracking
+        #for loop based recursion without backtracking by using temp
         
         """
         n = number of elems
@@ -26,10 +26,10 @@ class Solution:
             
             #logic
             for i in range(pivot, len(candidates)):
-                path.append(candidates[i])
-                helper(candidates, amount - candidates[i], path, i)
-                #backtrack
-                path.pop()
+                temp = path.copy()
+                temp.append(candidates[i])
+                helper(candidates, amount - candidates[i], temp, i)
+                
         
         helper(candidates, target, [], 0)
         return result
