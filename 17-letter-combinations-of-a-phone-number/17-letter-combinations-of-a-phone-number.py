@@ -19,19 +19,21 @@ class Solution:
         
         result = []
         
-        def helper(pos, path):
+        def helper(pos, substr):
             
-            if pos == len(digits):
-                result.append("".join(path))
+            if len(substr) == len(digits):
+                result.append(substr)
                 return 
+            
+            if pos > len(digits): return
             
             chars = hm[digits[pos]]
             for char in chars:
-                path.append(char)
-                helper(pos + 1, path)
-                path.pop()
+                # substr = substr + char
+                helper(pos + 1, substr + char)
+                
 
-        helper(0, [])
+        helper(0, "")
         return result
         
         
