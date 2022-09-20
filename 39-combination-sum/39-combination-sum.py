@@ -18,7 +18,7 @@ class Solution:
         def helper(candidates, amount, path, pivot):
             #base
             if amount == 0:
-                result.append(path)
+                result.append(path.copy())
                 return
             
             if amount < 0:
@@ -26,9 +26,9 @@ class Solution:
             
             #logic
             for i in range(pivot, len(candidates)):
-                temp = path.copy()
-                temp.append(candidates[i])
-                helper(candidates, amount - candidates[i], temp, i)
+                path.append(candidates[i])
+                helper(candidates, amount - candidates[i], path, i)
+                path.pop()
                 
         
         helper(candidates, target, [], 0)
