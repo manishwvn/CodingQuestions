@@ -2,7 +2,7 @@ from copy import deepcopy
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         
-        #for loop based recursion without backtracking by using temp
+        #for loop based recursion with backtracking
         
         """
         n = number of elems
