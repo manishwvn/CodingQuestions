@@ -3,6 +3,13 @@ class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         
         #unoptimized
+        """
+        n = number of elems
+        m = target
+        Time Complexity: O(2 ^ (m*n)) 
+        Space Complexity: O(2 ^ (m*n))
+        """
+        
         if not candidates:
             return result
         
