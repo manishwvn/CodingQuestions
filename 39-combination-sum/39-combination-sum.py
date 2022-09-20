@@ -18,7 +18,7 @@ class Solution:
         def helper(candidates, amount, path, pivot):
             #base
             if amount == 0:
-                result.append(path.copy())
+                result.append(path)
                 return
             
             if amount < 0:
