@@ -1,6 +1,7 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         
+        #using hashmap/counter
         result = []
         counts = Counter(nums)
         
