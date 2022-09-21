@@ -12,7 +12,7 @@ class Solution:
                 return
             
             #logic
-            for n in counts.keys():
+            for n in counts:
                 #action
                 if counts[n] > 0:
                     perm.append(n)
