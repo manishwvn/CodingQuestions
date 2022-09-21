@@ -10,7 +10,7 @@ class Solution:
                 return 
             
             #action
-            for num in nums:
+            for num in hm:
                 if hm[num] == 0:
                     continue
                 
