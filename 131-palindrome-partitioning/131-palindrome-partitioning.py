@@ -2,7 +2,14 @@ class Solution:
     def partition(self, s: str) -> List[List[str]]:
         
         def is_pal(string):
-            return string == string[::-1]
+            start, end = 0, len(string) - 1
+            while start < end:
+                if string[start] != string[end]:
+                    return False
+                start += 1
+                end -= 1
+                
+            return True
     
         result = []
 
