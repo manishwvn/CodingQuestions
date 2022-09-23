@@ -15,7 +15,7 @@ class Solution:
             #logic
             if board[r][c] == word[pos]:
                 #action
-                char = board[r][c]
+                # char = board[r][c]
                 board[r][c] = "#"
                 
                 for dir in dirs:
@@ -23,7 +23,7 @@ class Solution:
                     if backtrack(nr, nc, pos + 1):
                         return True
                     
-                board[r][c] = char
+                board[r][c] = word[pos]
             
             return False
         
