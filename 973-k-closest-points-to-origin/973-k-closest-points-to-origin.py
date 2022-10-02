@@ -10,12 +10,8 @@ class Solution:
             euc_dist = math.dist(point, origin)
             heappush(heap, (euc_dist, point))
             
-        closest = nsmallest(k, heap)
-        result = []
-        for point in closest:
-            result.append(point[1])
-            
-        return result
+        return [point[1] for point in nsmallest(k, heap)]
+        
         
         
         
