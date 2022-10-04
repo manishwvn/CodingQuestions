@@ -1,10 +1,9 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         
-        #using hashmap
-        
         l = 0
         counts = {}
+        maxf = 0
         res = 0
         for i in range(len(s)):
             if s[i] in counts:
@@ -13,7 +12,8 @@ class Solution:
             else:
                 counts[s[i]] = 1
                 
-            while (i - l + 1) - max(counts.values()) > k:
+            maxf = max(maxf, counts[s[i]])
+            while (i - l + 1) - maxf > k:
                 counts[s[l]] -= 1
                 l += 1
                 
@@ -22,3 +22,4 @@ class Solution:
         return res
             
             
+        
