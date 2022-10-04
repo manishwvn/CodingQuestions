@@ -10,9 +10,9 @@ class Solution:
                 res = res + (counts[char] * char)
                 del counts[char]
                 
-        if counts:
-            for key, val in counts.items():
-                res = res + (key * val)
+        
+        for key, val in counts.items():
+            res = res + (key * val)
                 
         return res
                 
