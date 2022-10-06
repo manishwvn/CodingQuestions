@@ -1,16 +1,25 @@
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
-        s_list = s.split(" ")
-        if len(pattern) != len(s_list):
+        map_index = {}
+        words = s.split()
+        
+        if len(pattern) != len(words):
             return False
-    
-        pmap, smap = {}, {}
-        for i in range(len(s_list)):
-            if pmap.get(pattern[i], -1) != smap.get(s_list[i], -1):
+        
+        for i in range(len(words)):
+            c = pattern[i]
+            w = words[i]
+
+            char_key = f"char_{c}"
+            char_word = f"word_{w}"
+            
+            if char_key not in map_index:
+                map_index[char_key] = i
+            
+            if char_word not in map_index:
+                map_index[char_word] = i 
+            
+            if map_index[char_key] != map_index[char_word]:
                 return False
-            pmap[pattern[i]] = i
-            smap[s_list[i]] = i
         
         return True
-            
-        
