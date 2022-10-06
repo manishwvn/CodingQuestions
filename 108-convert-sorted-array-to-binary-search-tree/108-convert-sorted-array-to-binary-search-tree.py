@@ -19,7 +19,7 @@ class Solution:
             node.right = helper(mid +1, end)
             return node
         
-        hm = {v:i for i, v in enumerate(nums)}
+        # hm = {v:i for i, v in enumerate(nums)}
         return helper(0, len(nums) - 1)
         
         
