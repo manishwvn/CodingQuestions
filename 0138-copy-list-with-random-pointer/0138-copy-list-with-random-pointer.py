@@ -10,32 +10,39 @@ class Node:
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         
-        def clone(node):
-            if not node: return None
-            if node in hm:
-                return hm[node]
+        if not head:
+            return None
+        
+        #create mutated list
+        curr = head
+        while curr:
+            new_node = Node(curr.val)
+            new_node.next = curr.next
+            curr.next = new_node
+            curr = curr.next.next
             
-            new_node = Node(node.val)
-            hm[node] = new_node
-            return new_node
-            
+        #create random pointers
+        curr = head
+        copy_curr = curr.next
         
-        hm = {}
-        
-        if not head: return None
-        
-        node = head
-        copy_head = clone(head)
+        while curr:
+            if curr.random:
+                copy_curr.random = curr.random.next
+            curr = curr.next.next
+            if copy_curr.next:
+                copy_curr = copy_curr.next.next
+                
+        #split the list
+        curr = head
+        copy_head = curr.next
         copy_curr = copy_head
         
-        while node:
-            copy_curr.next = clone(node.next)
-            copy_curr.random = clone(node.random)
-            node = node.next
+        while curr:
+            curr.next = curr.next.next
+            if copy_curr.next:
+                copy_curr.next = copy_curr.next.next
+            curr = curr.next
             copy_curr = copy_curr.next
             
         return copy_head
-            
-            
-        
         
