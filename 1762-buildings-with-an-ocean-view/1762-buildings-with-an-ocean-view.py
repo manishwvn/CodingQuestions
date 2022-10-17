@@ -1,26 +1,17 @@
 class Solution:
-    def findBuildings(self, h: List[int]) -> List[int]:
+    def findBuildings(self, heights: List[int]) -> List[int]:
         
-        if len(h) == 1:
-            return [0]
-        
-        n = len(h)
-        
-        buffer = [-1] * n
-        buffer[-1] = n - 1
-        
-        stack = [h[n-1]]
         result = []
+        maxm = -float("inf")
         
-        for i in range(n-2, -1, -1):
-            if h[i] > stack[-1]:
-                buffer[i] = i
-                stack.pop()
-                stack.append(h[i])
+        for i in range(len(heights) - 1, -1, -1):
+            curr = heights[i]
+            if curr > maxm:
+                result.append(i)
+                maxm = curr
                 
-        for num in buffer:
-            if num != -1:
-                result.append(num)
+        return result[::-1]
+            
         
-        return result
+        
         
