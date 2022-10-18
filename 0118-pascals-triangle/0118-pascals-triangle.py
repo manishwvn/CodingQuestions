@@ -1,23 +1,19 @@
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
-        #by formula
-        def f(n):            
-            if n == 0:
-                return 1
-            
-            return n * f(n-1)
         
-        n = numRows
         result = []
-        
+        n = numRows
         for i in range(n):
-            temp = []
+            row = []
             for j in range(i+1):
-                val = int(f(i)  / (f(i - j) * f(j)))
-                temp.append(val)
-                
-            result.append(temp)
-            
-        return result
+                if j == 0 or j == i:
+                    row.append(1)
+                else:
+                    left = result[i - 1][j - 1]
+                    right = result[i-1][j]
+                    row.append(left + right)
+                    
+            result.append(row)
         
+        return result
         
