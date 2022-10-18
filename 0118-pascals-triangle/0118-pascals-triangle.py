@@ -1,9 +1,7 @@
-# from math import factorial as f
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
-        
-        def f(n):
-            
+        #by formula
+        def f(n):            
             if n == 0:
                 return 1
             
