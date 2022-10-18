@@ -1,6 +1,13 @@
-from math import factorial as f
+# from math import factorial as f
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
+        
+        def f(n):
+            
+            if n == 0:
+                return 1
+            
+            return n * f(n-1)
         
         n = numRows
         result = []
