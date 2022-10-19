@@ -7,14 +7,18 @@ class Solution:
         n = len(temperatures)
         result = [0] * n
         
-        stack = []
+        maxm = 0
         
-        for i in range(n):
-            while stack and stack[-1][0] < temperatures[i]:
-                temp, idx = stack.pop()
-                result[idx] = i - idx
+        for i in range(n-1, -1, -1):
+            if temperatures[i] >= maxm:
+                maxm = temperatures[i]
+                continue
                 
-            stack.append([temperatures[i], i])
+            days = 1
+            while temperatures[i + days] <= temperatures[i]:
+                days += result[i + days]
+                
+            result[i] = days
             
         return result
             
