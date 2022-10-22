@@ -1,17 +1,28 @@
 class SparseVector:
     def __init__(self, nums: List[int]):
-        self.hm = {}
-        for i, val in enumerate(nums):
-            if val:
-                self.hm[i] = val
+        
+        self.lookup = []
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                self.lookup.append((i, nums[i]))
         
 
     # Return the dotProduct of two sparse vectors
     def dotProduct(self, vec: 'SparseVector') -> int:
+        
         result = 0
-        for i, val in self.hm.items():
-            if i in vec.hm:
-                result += self.hm[i] * vec.hm[i]
+        
+        p1, p2 = 0, 0
+        
+        while p1 < len(self.lookup) and p2 < len(vec.lookup):
+            if self.lookup[p1][0] == vec.lookup[p2][0]:
+                result += self.lookup[p1][1] * vec.lookup[p2][1]
+                p1 += 1
+                p2 += 1
+            elif self.lookup[p1][0] < vec.lookup[p2][0]:
+                p1 += 1
+            else:
+                p2 += 1
                 
         return result
         
