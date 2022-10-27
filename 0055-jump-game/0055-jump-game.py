@@ -1,15 +1,26 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         
-        last = len(nums) - 1
+        #using bfs
+        if len(nums) < 2: return True
+        n = len(nums) - 1
         
-        for i in range(len(nums) - 1, -1, -1):
-            if nums[i] + i >= last:
-                last = i
-                
-        return last == 0
-                
+        
+        queue = deque()
+        queue.append(0)
+        visited = set()
+        while queue:
+            i = queue.popleft()
             
-        
-        
+            for j in range(1, nums[i]+1):
+                idx = i + j
+                if idx >= n:
+                    return True
+                
+                if idx not in visited:
+                    visited.add(idx)
+                    queue.append(idx)
+                
+        return False
+            
         
