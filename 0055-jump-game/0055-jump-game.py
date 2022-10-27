@@ -1,26 +1,17 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         
-        #using bfs
         if len(nums) < 2: return True
-        n = len(nums) - 1
         
+        target = len(nums) - 1
         
-        queue = deque()
-        queue.append(0)
-        visited = set()
-        while queue:
-            i = queue.popleft()
-            
-            for j in range(1, nums[i]+1):
-                idx = i + j
-                if idx >= n:
-                    return True
+        for i in range(len(nums) - 2, -1, -1):
+            if i + nums[i] >= target:
+                target = i
                 
-                if idx not in visited:
-                    visited.add(idx)
-                    queue.append(idx)
+        return target == 0        
                 
-        return False
-            
+                
+                
+        
         
