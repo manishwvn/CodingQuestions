@@ -11,26 +11,38 @@ class Node:
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         
+        def helper(child, prev, leftmost):
+            
+            if child:
+            
+                if prev:
+                    prev.next = child
+
+                else:
+                    leftmost = child
+
+                prev = child
+                
+            return prev, leftmost
+        
+        
         if not root: return None
         
-        queue = deque()
-        queue.append(root)
+        leftmost = root
         
-        while queue:
-            size = len(queue)
+        while leftmost:
+            prev, curr = None, leftmost
+            leftmost = None
             
-            
-            
-            for i in range(size):
-                node = queue.popleft()
+            while curr:
+                prev, leftmost = helper(curr.left, prev, leftmost)
+                prev, leftmost = helper(curr.right, prev, leftmost)
                 
-                if i < size - 1:
-                    node.next = queue[0]
-                    
-                if node.left: queue.append(node.left)
-                if node.right: queue.append(node.right)
-                    
+                curr = curr.next
+        
         return root
+                
+                
             
             
         
