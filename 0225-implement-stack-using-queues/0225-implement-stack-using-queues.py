@@ -1,27 +1,32 @@
 class MyStack:
 
     def __init__(self):
-        self.stack_queue = deque()
+        self.q1 = deque()
+        self.q2 = deque()
         
-
     def push(self, x: int) -> None:
-        prev_size = len(self.stack_queue)
-        
-        self.stack_queue.append(x)
-        while prev_size > 0:
-            popped = self.stack_queue.popleft()
-            self.stack_queue.append(popped)
-            prev_size -= 1
- 
+        self.q1.append(x)
+    
     def pop(self) -> int:
-        return self.stack_queue.popleft()
+        
+        while len(self.q1) > 1:
+            top = self.q1.popleft()
+            self.q2.append(top)
+            
+        popped = self.q1.popleft()
+        
+        while self.q2:
+            self.q1.append(self.q2.popleft())
+            
+        return popped
         
 
     def top(self) -> int:
-        return self.stack_queue[0]
+        return self.q1[-1]
+        
 
     def empty(self) -> bool:
-        return False if self.stack_queue else True
+        return len(self.q1) == 0
         
 
 
