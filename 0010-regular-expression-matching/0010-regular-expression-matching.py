@@ -1,33 +1,28 @@
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
+        n = len(p)
+        dp = [False] * (n + 1)
+        prev = True
         
-        dp = [[False for _ in range(len(p) + 1)] for _ in range(len(s) + 1)]
-        dp[0][0] = True
+		# pretreat dp for p like "a*b*ccc*", dp[2] and dp[4] ought to be true.
+        for j in range(2, n + 1, 2):
+            if p[j - 1] != '*':
+                break
+            dp[j] = True
         
-        
-        for j in range(1, len(dp[0])):
-            if p[j-1] == "*":
-                dp[0][j] = dp[0][j-2]
+        for i in range(len(s)):
+            for j in range(1, n + 1):
                 
-        for i in range(1, len(dp)):
-            for j in range(1, len(dp[0])):
+                temp = dp[j]  # to store dp[i-1][j-1] (in the original big dp matrix)
                 
-                #normal char
-                if p[j-1] != "*":
-                    if p[j-1] == s[i-1] or p[j-1] == '.':
-                        dp[i][j] = dp[i-1][j-1]
-                        
+                if p[j - 1] == '*':
+                    dp[j] = dp[j - 2] or dp[j - 1] or (
+                        dp[j] and (s[i] == p[j - 2] or p[j - 2] == '.'))
                 else:
-                    #if *
-                    #zero case
-                    dp[i][j] = dp[i][j-2]
+                    dp[j] = prev and (p[j - 1] == '.' or s[i] == p[j - 1])
                     
-                    #one case
-                    if p[j-2] == s[i-1] or p[j-2] == ".":
-                        dp[i][j] = dp[i][j] or dp[i-1][j]
-                        
-        return dp[-1][-1]
-                    
+                prev = temp
+            
+            prev = False  # dp[i][0] should be false (in the original big dp matrix)
         
-        
-        
+        return dp[n]
