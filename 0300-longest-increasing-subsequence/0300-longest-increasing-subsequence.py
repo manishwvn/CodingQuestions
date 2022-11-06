@@ -1,35 +1,16 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         
-        def bs(array, num):
-            l, r = 0, len(array) - 1
-            
-            while l <= r:
-                mid = (l + r) // 2
-                
-                if array[mid] == num:
-                    return mid
-                
-                elif array[mid] <= num:
-                    l = mid + 1
+        if not nums or len(nums) == 0: return 0            
+        
+        if len(nums) == 1: return 1
+        
+        dp = [1] * len(nums)
+        
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], 1 + dp[j])
                     
-                else:
-                    r = mid - 1
-                    
-            return l
-        
-        
-        result = [nums[0]]
-        
-        for i in range(len(nums)):
-            if nums[i] > result[-1]:
-                result.append(nums[i])
-                
-            else:
-                j = bs(result, nums[i])
-                result[j] = nums[i]
-                
-        return len(result)
-    
-        
+        return max(dp)
         
