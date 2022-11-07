@@ -13,21 +13,19 @@ class Solution:
         
         if not root: return None
         
-        leftmost = root
+        curr = root
+        nxt = root.left if root else None
         
-        while leftmost.left:
+        while curr and nxt:
+            curr.left.next = curr.right
             
-            curr = leftmost
+            if curr.next:
+                curr.right.next = curr.next.left
             
-            while curr:
-                curr.left.next = curr.right
+            curr = curr.next
+            
+            if not curr:
+                curr = nxt
+                nxt = curr.left
                 
-                if curr.next:
-                    curr.right.next = curr.next.left
-                    
-                curr = curr.next
-                
-            leftmost = leftmost.left
-            
         return root
-        
