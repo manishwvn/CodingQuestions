@@ -13,6 +13,5 @@ class Solution:
                 
         return profit
             
-        return profit
             
         
