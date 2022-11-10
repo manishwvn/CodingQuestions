@@ -2,34 +2,23 @@ class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
         
         word_set = set(wordDict)
-        memo = {}
         
-        def helper(string):
-            if string in memo: return memo[string]
+        dp = [[]] * (len(s) + 1)
+        dp[0] = [""]
+        
+        for end in range(1, len(s) + 1):
+            sub = []
             
-            result = []
-            
-            for i in range(len(string)):
-                prefix = string[:i+1]
+            for start in range(0, end):
+                word = s[start:end]
                 
-                if prefix in word_set:
-                    if prefix == string:
-                        result.append(string)
+                if word in word_set:
+                    for prefix in dp[start]:
+                        sub.append((prefix + " " + word).strip())
                         
-                    else:
-                        rest = helper(string[i+1:])
-                        for word in rest:
-                            phrase = prefix + " " + word
-                            result.append(phrase)
+            dp[end] = sub
             
-            memo[string] = result
-            return result
-            
-            
-                
-                
-            
-            
+        return dp[len(s)]
+
         
         
-        return helper(s)
