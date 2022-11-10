@@ -4,18 +4,19 @@ class Solution:
         #top down
         n = len(s)
         dp = [False] * (n+1)
-        dp[n] = True
+        dp[0] = True
         
-        for i in range(n-1, -1, -1):
-            for word in wordDict:
-                m = len(word)
-                if i + m <= n and s[i:i+m] == word:
-                    dp[i] = dp[i + m]
+        word_set = set(wordDict)
+        
+        for i in range(len(dp)):
+            for j in range(0, i):
+                
+                if dp[j] and s[j:i] in word_set:
                     
-                if dp[i]:
+                    dp[i] = True
                     break
                     
-        return dp[0]
+        return dp[-1]
         
         
         
