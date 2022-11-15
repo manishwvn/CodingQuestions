@@ -1,23 +1,9 @@
 class Solution:
     def getRow(self, rowIndex: int) -> List[int]:
-        
-        result = []
-        
-        for i in range(rowIndex+1):
-            temp = []
-            
-            for j in range(i+1):
-                
-                if j == 0 or j == i:
-                    temp.append(1)
-                    
-                else:
-                    value = result[i-1][j-1] + result[i-1][j]
-                    temp.append(value)
-                    
-            result.append(temp)
-            
-        return result[rowIndex]
-                    
-            
-        
+        numRows = rowIndex+1
+        l=[1]*numRows
+        for i in range(numRows):
+            l[i]=[1]*(i+1)
+            for j in range(1,i):
+                l[i][j]=l[i-1][j-1]+l[i-1][j]
+        return l[rowIndex]
