@@ -1,31 +1,27 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
+        
         graph = {i:[] for i in range(numCourses)}
+        indegree = [0] * numCourses
+        
         for i, j in prerequisites:
-            graph[i].append(j)
-
-        visited = [0] * numCourses
-
-
-        def dfs(node):
-            if visited[node] == -1:
-                return False
-            if visited[node] == 1:
-                return True
-
-            visited[node] = -1
-
+            graph[j].append(i)
+            indegree[i] += 1
+        
+        queue = []
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                queue.append(i)
+        
+        count = 0
+        while queue:
+            node = queue.pop(0)
+            count += 1
+            
             for neighbor in graph[node]:
-                if not dfs(neighbor):
-                    return False
-
-            visited[node] = 1
-
-            return True
-
-        for node in range(numCourses):
-            if not dfs(node):
-                return False
-
-        return True
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    queue.append(neighbor)
+        
+        return count == numCourses
