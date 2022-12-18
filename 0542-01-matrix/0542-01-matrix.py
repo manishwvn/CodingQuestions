@@ -1,29 +1,27 @@
 class Solution:
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
         
-        dirs = [(0,1), (0,-1), (1,0), (-1,0)]
         m, n = len(mat), len(mat[0])
-
-        queue = deque()
-
+        distances = [[float('inf') for _ in range(n)] for _ in range(m)]
+    
         for i in range(m):
             for j in range(n):
                 if mat[i][j] == 0:
-                    queue.append((i,j))
+                    distances[i][j] = 0
                 else:
-                    mat[i][j] = float('inf')
+                    if i > 0:
+                        distances[i][j] = min(distances[i][j], distances[i-1][j] + 1)
+                    if j > 0:
+                        distances[i][j] = min(distances[i][j], distances[i][j-1] + 1)
 
-        while queue:
-            r, c = queue.popleft()
+        for i in range(m-1, -1, -1):
+            for j in range(n-1, -1, -1):
+                if i < m-1:
+                    distances[i][j] = min(distances[i][j], distances[i+1][j] + 1)
+                if j < n-1:
+                    distances[i][j] = min(distances[i][j], distances[i][j+1] + 1)
 
-            for dr, dc in dirs:
-                nr = r + dr
-                nc = c + dc
-
-                if 0 <= nr < m and 0 <= nc < n and mat[nr][nc] > mat[r][c] + 1:
-                    mat[nr][nc] = mat[r][c] + 1
-                    queue.append((nr,nc))
+        return distances
 
 
-        return mat
-        
+
