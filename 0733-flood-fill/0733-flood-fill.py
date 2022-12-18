@@ -3,25 +3,17 @@ class Solution:
         
         if not image or image[sr][sc] == color:
             return image
-        
-        dirs = [(0,1), (0,-1), (1,0), (-1,0)]
     
-        queue = deque()
-        queue.append((sr,sc))
-        src_color = image[sr][sc]
-        image[sr][sc] = color
+        dirs = [(0,1), (0,-1), (1,0), (-1,0)]
 
-        while queue:
-            r, c = queue.popleft()
-
-            for dr, dc in dirs:
-                nr = r + dr
-                nc = c + dc
-
-                if 0 <= nr < len(image) and 0 <= nc < len(image[0]) and image[nr][nc] == src_color:
-                    queue.append((nr,nc))
-
+        def dfs(r, c):
+            if 0 <= r < len(image) and 0 <= c < len(image[0]) and image[r][c] == src_color:
                 image[r][c] = color
+                for dr, dc in dirs:
+                    dfs(r+dr, c+dc)
 
+        src_color = image[sr][sc]
+        dfs(sr, sc)
         return image
-        
+
+                    
