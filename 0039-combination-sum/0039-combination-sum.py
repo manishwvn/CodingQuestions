@@ -11,16 +11,11 @@ class Solution:
 
             if target < 0 or i == len(nums):
                 return
-            #not choose
-            helper(i+1, path, target)
-
-            # choose
-            # action
-            path.append(nums[i])
-            # recursion
-            helper(i, path, target-nums[i])
-            # backtrack
-            path.pop()
+            
+            for j in range(i, len(nums)):
+                path.append(nums[j])
+                helper(j, path, target - nums[j])
+                path.pop()            
 
         helper(0, [], target)
         return result
