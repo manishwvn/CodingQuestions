@@ -1,37 +1,27 @@
-from copy import deepcopy
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        
-        #for loop based recursion with backtracking
-        
-        """
-        n = number of elems
-        m = target
-        Time Complexity: O(2 ^ (m*n)) 
-        Space Complexity: O(2 ^ (m*n))
-        """
-        
-        if not candidates:
-            return []
+    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
         
         result = []
-        def helper(candidates, amount, path, pivot):
-            #base
-            if amount == 0:
+
+        def helper(i, path, target):
+            # base case
+            if target == 0:
                 result.append(path.copy())
                 return
-            
-            if amount < 0:
-                return 
-            
-            #logic
-            for i in range(pivot, len(candidates)):
-                path.append(candidates[i])
-                helper(candidates, amount - candidates[i], path, i)
-                path.pop()
-                
-        
-        helper(candidates, target, [], 0)
+
+            if target < 0 or i == len(nums):
+                return
+            #not choose
+            helper(i+1, path, target)
+
+            # choose
+            # action
+            path.append(nums[i])
+            # recursion
+            helper(i, path, target-nums[i])
+            # backtrack
+            path.pop()
+
+        helper(0, [], target)
         return result
-        
         
