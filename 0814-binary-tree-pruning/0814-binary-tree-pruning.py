@@ -7,27 +7,26 @@
 class Solution:
     def pruneTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         
+#         if not root: return None
+        
+#         root.left = self.pruneTree(root.left)
+#         root.right = self.pruneTree(root.right)
+        
+#         if root.val == 0 and not root.left and not root.right:
+#             root = None
+            
+#         return root
+        
+        
         def helper(root):
+            if not root: return None
             
-            if not root: return False
+            root.left = helper(root.left)
+            root.right = helper(root.right)
             
-            leftNode = helper(root.left)  
-            rightNode = helper(root.right) 
-            
-            if not leftNode: 
-                root.left = None
+            if root.val == 0 and not root.left and not root.right:
+                root = None
                 
-            if not rightNode:
-                root.right = None
-                
-            if not leftNode and not rightNode and root.val != 1:
-                return False
-            
-            return True
+            return root
         
-        if not helper(root): return None
-        return root
-        
-        
-        
-        
+        return helper(root)
