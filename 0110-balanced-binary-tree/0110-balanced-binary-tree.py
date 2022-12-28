@@ -7,7 +7,7 @@
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
         
-        #O(n^2)
+        #O(nlogn) - inefficient
         
         def calcHeight(node):
             if not node: return 0
