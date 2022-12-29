@@ -19,7 +19,6 @@ class Solution:
             inorder(root.right)
             
         inorder(root)
-        print(sorted_arr)
         
         left, right = 0, len(sorted_arr)
         
