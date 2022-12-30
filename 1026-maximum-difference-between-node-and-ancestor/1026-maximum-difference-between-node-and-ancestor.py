@@ -17,13 +17,13 @@ class Solution:
             global result
 
             if not root:
-                result = max(result, abs(maxm - minm))
+                # result = max(result, abs(maxm - minm))
                 return
             
-            result = max(result, maxm - minm)
             minm = min(minm, root.val)
             maxm = max(maxm, root.val)
-            
+            result = max(result, maxm - minm)
+
             helper(root.left, minm , maxm)
             helper(root.right, minm, maxm)        
             
