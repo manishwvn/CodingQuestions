@@ -21,9 +21,11 @@ class Solution:
                 return
             
             result = max(result, maxm - minm)
+            minm = min(minm, root.val)
+            maxm = max(maxm, root.val)
             
-            helper(root.left, min(minm, root.val), max(maxm, root.val))
-            helper(root.right, min(minm, root.val), max(maxm, root.val))        
+            helper(root.left, minm , maxm)
+            helper(root.right, minm, maxm)        
             
             
         helper(root, minm, maxm)
