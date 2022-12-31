@@ -15,16 +15,16 @@ class Solution:
             if not root:
                 return
             
-            if root:
+            
                 
-                if low <= root.val and high >= root.val:
-                    sum_ += root.val
-                
-                if low < root.val:
-                    helper(root.left)
-                    
-                if root.val < high:
-                    helper(root.right)
+            if low <= root.val and high >= root.val:
+                sum_ += root.val
+
+            if low < root.val:
+                helper(root.left)
+
+            if root.val < high:
+                helper(root.right)
             
             
         helper(root)
