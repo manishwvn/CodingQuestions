@@ -20,7 +20,7 @@ class Solution:
             if n == 1:
                 return True
             
-            if n in hm:
+            elif n in hm:
                 return False
             
             
