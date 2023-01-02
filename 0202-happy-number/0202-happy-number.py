@@ -12,20 +12,24 @@ class Solution:
             return sqSum
         
         
-        hm = set()
-        while n not in hm:
-            hm.add(n)
-            n = getSqSum(n)
+        if n == 1: return True
+        
+        t = getSqSum(n)
+        h = getSqSum(getSqSum(n))
+        
+        if t == 1 or h == 1:
+            return True
+        
+        while t != h:
             
-            if n == 1:
+            t = getSqSum(t)
+            h = getSqSum(getSqSum(h))
+            
+            if t == 1 or h == 1:
                 return True
             
-            elif n in hm:
-                return False
-            
-            
-            
-        return True
+        return False    
+        
             
         
             
