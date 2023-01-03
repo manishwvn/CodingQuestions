@@ -21,7 +21,6 @@ class Solution:
             else:
                 j += 1
         
-        print(result)
         return result
                  
             
