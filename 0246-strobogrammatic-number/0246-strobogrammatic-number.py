@@ -1,26 +1,30 @@
 class Solution:
     def isStrobogrammatic(self, num: str) -> bool:
         
-        def getDigits(n):
-            digits = []
+#         def getDigits(n):
+#             digits = []
             
-            while n:
-                rem = n % 10
-                n //= 10
-                digits.append(rem)
+#             while n:
+#                 rem = n % 10
+#                 n //= 10
+#                 digits.append(rem)
                 
-            return digits
+#             return digits
         
-        numset = {0:0, 1:1, 6:9, 8:8, 9:6}
+        numset = {'0':'0', '1':'1', '6':'9', '8':'8', '9':'6'}
         
-        digits = getDigits(int(num))
+        l, r = 0, len(num) - 1
+
         
-        newnum = 0
-        
-        for i in range(len(digits) - 1, -1, -1):
-            if digits[i] not in numset:
+        while l <= r :
+            if num[l] not in numset or num[r] not in numset:
                 return False
-            newnum = newnum * 10 + numset[digits[i]]
             
-        newnum = str(newnum)
-        return newnum[::-1] == num
+            if numset[num[l]] != num[r]:
+                return False
+            
+            l += 1
+            r -= 1
+            
+        return True
+        
