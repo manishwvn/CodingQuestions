@@ -8,20 +8,33 @@ class Solution:
         
         if not head: return head
         
-        counts = defaultdict(int)
+        counts = defaultdict(bool)
         
         node = head
-        while node:
-            counts[node.val] += 1
-            node = node.next
         
+        while node:
+            if node.val in counts:
+                counts[node.val] = True
+                
+            else:
+                counts[node.val] = False
+            node = node.next
+                
         new_head = ListNode(-1)
-        curr_head = new_head
-        for i, v in counts.items():
-            if v == 1:
-                node = ListNode(i)
-                curr_head.next = node
-                curr_head = curr_head.next
+        new_head.next = head
+        
+        prev, curr = new_head, head
+        
+        while curr:
+            if counts[curr.val]:
+                temp = curr.next
+                prev.next = temp
+                curr.next = None
+                curr = temp
+                
+            else:
+                prev = curr
+                curr = curr.next
                 
         return new_head.next
-        
+                
