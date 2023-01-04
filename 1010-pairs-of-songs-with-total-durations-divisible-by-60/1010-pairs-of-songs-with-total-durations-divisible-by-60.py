@@ -13,7 +13,6 @@ class Solution:
                 
             hm[num % 60] += 1
             
-        print(hm)
         return pairs
         
         
