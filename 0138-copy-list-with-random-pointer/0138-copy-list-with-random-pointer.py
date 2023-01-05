@@ -10,34 +10,35 @@ class Node:
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         
-        #O(2.n) TC
-        #O(n) SC
+        def create_copy(node):
+            if not node: return None
+            
+            if node in hm:
+                return hm[node]
+            new_node = Node(node.val)
+            hm[node] = new_node
+            return new_node
         
         if not head: return None
         
-        
-        copy_head = Node(head.val)
-        hm = {head:copy_head}
-        
-        node = head
-        copy_node = copy_head
-        
-        while node.next:
-            node = node.next
-            new_node = Node(node.val)
-            copy_node.next = new_node
-            copy_node = copy_node.next
-            hm[node] = copy_node
-        
+        hm = {}
+        copy_head = create_copy(head)
         node, copy_node = head, copy_head
         
-        while node and copy_node:
-            if node.random:
-                copy_node.random = hm[node.random]
-                
-            node = node.next
-            copy_node = copy_node.next
-            
+        while node:
+            copy_node.next = create_copy(node.next)
+            copy_node.random = create_copy(node.random)
+            node, copy_node = node.next, copy_node.next
+        
+        # for k, v in hm.items():
+        #     print(k.val, v.val)
+        
         return copy_head
+            
+        
+        
+        
+        
+        
         
         
