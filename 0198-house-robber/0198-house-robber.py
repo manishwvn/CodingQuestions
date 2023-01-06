@@ -6,12 +6,14 @@ class Solution:
         if len(nums) == 2: return max(nums[0], nums[1])
         
         
-        dp = [-1] * len(nums)
-        dp[0] = nums[0]
-        dp[1] = max(nums[0], nums[1])
+        val0, val1 = nums[0], max(nums[0], nums[1])
+        result = 0
         
         for i in range(2, len(nums)):
-            dp[i] = max(nums[i]+dp[i-2], dp[i-1])
+            result = max(val0 + nums[i], val1)
+            val0 = val1
+            val1 = result
             
-        return dp[-1]
+        return result
+            
         
