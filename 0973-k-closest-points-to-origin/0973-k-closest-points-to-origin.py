@@ -8,13 +8,8 @@ class Solution:
             
             dist = math.sqrt((points[i][0])**2 + (points[i][1])** 2)
             
-            heappush(heap, (dist, points[i]))
+            heappush(heap, (-dist, points[i]))
+            if len(heap) > k:
+                heapq.heappop(heap)
             
-        result = []
-        
-        while k:
-            dist, point = heappop(heap)
-            result.append(point)
-            k -= 1
-            
-        return result
+        return [ele[1] for ele in heap]
