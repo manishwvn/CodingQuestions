@@ -10,10 +10,8 @@ class Solution:
         result = 0
         
         for i in range(2, len(nums)):
-            result = max(val0 + nums[i], val1)
-            val0 = val1
-            val1 = result
+            val0, val1 = val1, max(val0 + nums[i], val1)
             
-        return result
+        return val1
             
         
