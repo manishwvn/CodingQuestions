@@ -1,7 +1,7 @@
 class Solution:
     def minimumSwaps(self, nums: List[int]) -> int:
         
-        minm, maxm = float('inf'), float('-inf')
+        minm, maxm = 10 ** 5+1, -1
         
         for i in range(len(nums)):
             
