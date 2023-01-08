@@ -1,0 +1,7 @@
+SELECT 
+     NAME AS 'name'
+FROM
+    CUSTOMER
+WHERE
+    REFEREE_ID <> 2 OR
+    REFEREE_ID IS NULL;
