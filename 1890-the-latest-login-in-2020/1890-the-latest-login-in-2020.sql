@@ -1,0 +1,11 @@
+SELECT 
+    USER_ID AS 'user_id',
+    MAX(TIME_STAMP) AS 'last_stamp'
+FROM 
+    LOGINS
+WHERE
+    TIME_STAMP BETWEEN '2020-01-01 00:00:00' and '2020-12-31 23:59:59'
+GROUP BY
+    USER_ID;
+
+    
