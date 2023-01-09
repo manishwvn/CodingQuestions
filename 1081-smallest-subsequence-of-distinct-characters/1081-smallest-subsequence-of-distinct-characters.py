@@ -1,24 +1,17 @@
 class Solution:
     def smallestSubsequence(self, s: str) -> str:
-        
-        stack = []
-        visited = set()
-        
-        hm = {}
-        for i, char in enumerate(s):
-            hm[char] = i
-            
-        for i in range(len(s)):
-            
-            if s[i] not in visited:
-                
-                while stack and s[i] < stack[-1] and i < hm[stack[-1]]:
-                    char = stack.pop()
-                    if char in visited:
-                        visited.remove(char)
-                        
-                visited.add(s[i])
-                stack.append(s[i])
-                
-        return "".join(stack)
-        
+        count, seen, stk = Counter(s), {s[0]}, [s[0]]
+        for curr in s[1:]:
+            if curr in seen:
+                count[curr] -=1
+                continue
+
+            while stk and count[stk[-1]] > 1 and stk[-1] > curr:                
+                seen.discard(stk[-1])
+                count[stk[-1]] -=1
+                stk.pop()
+
+            stk.append(curr)
+            seen.add(curr)
+                                
+        return "".join(stk)
