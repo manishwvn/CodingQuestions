@@ -1,25 +1,16 @@
 class Solution:
-    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        
-        if not matrix:
-            return 0
-        m, n = len(matrix), len(matrix[0])
-        dp = [[0] * n for _ in range(m)]
-        res = 0
-
+    def longestIncreasingPath(self, matrix):
         def dfs(i, j):
-
-            nonlocal res
-            if dp[i][j] != 0:
-                return dp[i][j]
-            dp[i][j] = 1
-            for x, y in [(i-1, j), (i+1, j), (i, j-1), (i, j+1)]:
-                if 0 <= x < m and 0 <= y < n and matrix[x][y] > matrix[i][j]:
-                    dp[i][j] = max(dp[i][j], dfs(x, y) + 1)
-            res = max(res, dp[i][j])
+            if not dp[i][j]:
+                val = matrix[i][j]
+                dp[i][j] = 1 + max(
+                    dfs(i - 1, j) if i and val > matrix[i - 1][j] else 0,
+                    dfs(i + 1, j) if i < M - 1 and val > matrix[i + 1][j] else 0,
+                    dfs(i, j - 1) if j and val > matrix[i][j - 1] else 0,
+                    dfs(i, j + 1) if j < N - 1 and val > matrix[i][j + 1] else 0)
             return dp[i][j]
 
-        for i in range(m):
-            for j in range(n):
-                dfs(i, j)
-        return res
+        if not matrix or not matrix[0]: return 0
+        M, N = len(matrix), len(matrix[0])
+        dp = [[0] * N for i in range(M)]
+        return max(dfs(x, y) for x in range(M) for y in range(N))
