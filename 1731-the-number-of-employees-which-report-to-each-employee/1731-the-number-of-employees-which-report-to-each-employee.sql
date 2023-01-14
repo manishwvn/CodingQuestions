@@ -17,7 +17,7 @@ GROUP BY
     E1.EMPLOYEE_ID
 
 ORDER BY
-    E1.EMPLOYEE_ID
+    E1.EMPLOYEE_ID;
     
     
     
