@@ -6,11 +6,8 @@ SELECT
     
 FROM 
     EMPLOYEES E1
-    
     INNER JOIN
-    
     EMPLOYEES E2
-    
     ON E1.EMPLOYEE_ID = E2.REPORTS_TO
     
 GROUP BY 
