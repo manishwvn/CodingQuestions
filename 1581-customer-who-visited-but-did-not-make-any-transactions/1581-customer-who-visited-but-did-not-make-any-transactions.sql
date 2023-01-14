@@ -1,0 +1,10 @@
+SELECT 
+    V.CUSTOMER_ID AS 'customer_id',
+    COUNT(V.VISIT_ID) AS 'count_no_trans'
+    
+    FROM VISITS V
+
+WHERE V.VISIT_ID NOT IN
+    (SELECT VISIT_ID FROM TRANSACTIONS)
+    
+GROUP BY V.CUSTOMER_ID;
