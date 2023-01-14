@@ -1,0 +1,10 @@
+SELECT 
+    TEACHER_ID AS 'teacher_id', 
+    COUNT(DISTINCT(SUBJECT_ID)) AS 'cnt'
+    
+FROM
+    TEACHER
+
+GROUP BY
+    TEACHER_ID;
+    
