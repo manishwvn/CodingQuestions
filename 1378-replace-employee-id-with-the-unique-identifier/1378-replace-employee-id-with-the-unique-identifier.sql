@@ -1,0 +1,11 @@
+SELECT
+    U.UNIQUE_ID AS 'unique_id',
+    E.NAME AS 'name'
+FROM 
+    EMPLOYEEUNI U
+RIGHT JOIN
+    EMPLOYEES E
+ON 
+    E.ID = U.ID
+ORDER BY
+    E.NAME ASC;
