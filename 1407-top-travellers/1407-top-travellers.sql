@@ -1,0 +1,13 @@
+SELECT 
+    U.NAME AS 'name',
+    IFNULL(SUM(R.DISTANCE), 0) AS 'travelled_distance'
+FROM
+    USERS U
+LEFT JOIN
+    RIDES R
+ON 
+    U.ID = R.USER_ID
+GROUP BY
+    R.USER_ID
+ORDER BY
+    SUM(R.DISTANCE) DESC, NAME ASC; 
