@@ -1,0 +1,13 @@
+SELECT
+    S.ID AS 'id',
+    S.NAME AS 'name'
+FROM 
+    STUDENTS S
+LEFT JOIN
+    DEPARTMENTS D
+ON 
+    S.DEPARTMENT_ID = D.ID
+WHERE
+    D.ID IS NULL
+ORDER BY
+    S.ID;
