@@ -1,0 +1,11 @@
+SELECT
+    W.NAME AS 'warehouse_name',
+    SUM(W.UNITS * P.WIDTH * P.LENGTH * P.HEIGHT) AS 'volume'
+FROM
+    WAREHOUSE W
+JOIN
+    PRODUCTS P
+ON 
+    W.PRODUCT_ID = P.PRODUCT_ID
+GROUP BY
+    W.NAME;
