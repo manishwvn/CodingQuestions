@@ -1,0 +1,9 @@
+SELECT
+    USER_ID AS 'user_id',
+    COUNT(FOLLOWER_ID) AS 'followers_count'
+FROM
+    FOLLOWERS 
+GROUP BY
+    USER_ID
+ORDER BY
+    USER_ID;
