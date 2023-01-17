@@ -1,0 +1,16 @@
+SELECT
+    R.CONTEST_ID AS 'contest_id',
+    ROUND(((COUNT(DISTINCT R.USER_ID) / 
+            (SELECT COUNT(*) FROM USERS)) * 100), 2) 
+    AS 'percentage'
+FROM
+    REGISTER R
+INNER JOIN
+    USERS U
+ON 
+    R.USER_ID = U.USER_ID
+GROUP BY
+    CONTEST_ID
+ORDER BY
+    2 DESC, 1 ASC;
+
