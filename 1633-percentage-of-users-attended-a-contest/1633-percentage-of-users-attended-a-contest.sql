@@ -1,6 +1,6 @@
 SELECT
     R.CONTEST_ID AS 'contest_id',
-    ROUND(((COUNT(DISTINCT R.USER_ID) / 
+    ROUND(((COUNT(R.USER_ID) / 
             (SELECT COUNT(*) FROM USERS)) * 100), 2) 
     AS 'percentage'
 FROM
