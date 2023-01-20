@@ -10,16 +10,12 @@ class Solution:
         queue.append((0, ""))
         
         while queue:
-            print(f'before pop: {queue}')
             i, cs = queue.popleft()
-            # if i in visited:
-            #     continue
             
             for j in range(i+1, len(s)+1):
                 if s[i:j] in word_set:
                     
                     queue.append((j, cs + " " + s[i:j]))
-                    print(f'inside loop: {queue}')
                     if j == len(s):
                         result.append((cs + " " + s[i:j]).strip())
                         
