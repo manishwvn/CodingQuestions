@@ -3,22 +3,27 @@ class Solution:
         
         word_set = set(wordDict)
         
-        dp = [[]] * (len(s) + 1)
-        dp[0] = [""]
+        queue = deque()
+        visited = set()
+        result = []
         
-        for end in range(1, len(s) + 1):
-            sub = []
+        queue.append((0, ""))
+        
+        while queue:
+            print(f'before pop: {queue}')
+            i, cs = queue.popleft()
+            # if i in visited:
+            #     continue
             
-            for start in range(0, end):
-                word = s[start:end]
-                
-                if word in word_set:
-                    for prefix in dp[start]:
-                        sub.append((prefix + " " + word).strip())
+            for j in range(i+1, len(s)+1):
+                if s[i:j] in word_set:
+                    
+                    queue.append((j, cs + " " + s[i:j]))
+                    print(f'inside loop: {queue}')
+                    if j == len(s):
+                        result.append((cs + " " + s[i:j]).strip())
                         
-            dp[end] = sub
+                    
+            # visited.add(i)
             
-        return dp[len(s)]
-
-        
-        
+        return result
