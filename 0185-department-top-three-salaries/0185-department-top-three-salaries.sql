@@ -1,22 +1,39 @@
+# SELECT
+#     D.NAME AS 'Department',
+#     E.NAME AS 'Employee',
+#     E.SALARY AS 'Salary'
+    
+# FROM
+#     (SELECT
+#         DEPARTMENTID,
+#         NAME, 
+#         SALARY,
+#         DENSE_RANK() OVER(PARTITION BY DEPARTMENTID ORDER BY SALARY DESC) AS RNK
+#      FROM 
+#         EMPLOYEE) AS E
+
+# JOIN
+#     DEPARTMENT D
+# ON 
+#     E.DEPARTMENTID = D.ID
+
+# WHERE
+#     RNK <= 3;
+    
+    
 SELECT
-    D.NAME AS 'Department',
-    E.NAME AS 'Employee',
-    E.SALARY AS 'Salary'
-    
+    d.Name AS 'Department', e1.Name AS 'Employee', e1.Salary
 FROM
-    (SELECT
-        DEPARTMENTID,
-        NAME, 
-        SALARY,
-        DENSE_RANK() OVER(PARTITION BY DEPARTMENTID ORDER BY SALARY DESC) AS RNK
-     FROM 
-        EMPLOYEE) AS E
-
-JOIN
-    DEPARTMENT D
-ON 
-    E.DEPARTMENTID = D.ID
-
+    Employee e1
+        JOIN
+    Department d ON e1.DepartmentId = d.Id
 WHERE
-    RNK <= 3;
-    
+    3 > (SELECT
+            COUNT(DISTINCT e2.Salary)
+        FROM
+            Employee e2
+        WHERE
+            e2.Salary > e1.Salary
+                AND e1.DepartmentId = e2.DepartmentId
+        )
+;
