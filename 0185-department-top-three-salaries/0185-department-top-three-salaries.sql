@@ -1,0 +1,22 @@
+SELECT
+    D.NAME AS 'Department',
+    E.NAME AS 'Employee',
+    E.SALARY AS 'Salary'
+    
+FROM
+    (SELECT
+        DEPARTMENTID,
+        NAME, 
+        SALARY,
+        DENSE_RANK() OVER(PARTITION BY DEPARTMENTID ORDER BY SALARY DESC) AS RNK
+     FROM 
+        EMPLOYEE) AS E
+
+JOIN
+    DEPARTMENT D
+ON 
+    E.DEPARTMENTID = D.ID
+
+WHERE
+    RNK <= 3;
+    
