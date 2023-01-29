@@ -1,0 +1,5 @@
+SELECT
+    S.SCORE AS score,
+    DENSE_RANK() OVER (ORDER BY S.SCORE DESC) AS 'rank'
+FROM
+    SCORES S
