@@ -1,15 +1,20 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        hm = {0:1}
-        prefixSum = 0
-        result = 0
+        
+        count, sum_ = 0, 0
+        hm = defaultdict(int)
+        hm[0] = 1
+        
         for i in range(len(nums)):
-            prefixSum += nums[i]
-            if prefixSum - k in hm:
-                result += hm[prefixSum - k]
-                
-            if prefixSum not in hm:
-                hm[prefixSum] = 0
-            hm[prefixSum] += 1
+            sum_ += nums[i]
+            if sum_ - k in hm:
+                count += hm[sum_ - k]
+            # if sum_ in hm:
+            #     hm[sum_] += 1
+            # else:
+            #     hm[sum_] = 1
+            hm[sum_] += 1
             
-        return result
+        return count
+        
+        
