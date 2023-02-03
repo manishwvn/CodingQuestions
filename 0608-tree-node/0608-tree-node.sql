@@ -8,4 +8,6 @@ SELECT
         ELSE 'Leaf'
     END AS 'Type'
 FROM
-    TREE;
+    TREE
+ORDER BY
+    1;
