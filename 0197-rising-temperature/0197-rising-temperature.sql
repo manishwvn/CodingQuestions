@@ -1,10 +1,4 @@
-SELECT 
-    DISTINCT A.ID AS "Id"
-FROM 
-    WEATHER A, WEATHER B
-WHERE
-    A.TEMPERATURE > B.TEMPERATURE
-    AND
-    DATEDIFF(A.RECORDDATE, B.RECORDDATE) = 1;
-
-    
+SELECT w1.Id AS Id
+FROM Weather w1
+JOIN Weather w2 ON w1.RecordDate = w2.RecordDate + 1
+WHERE w1.Temperature > w2.Temperature;
