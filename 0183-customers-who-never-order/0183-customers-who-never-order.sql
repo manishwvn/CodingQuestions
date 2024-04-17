@@ -1,3 +1,3 @@
-SELECT c.`Name` as Customers FROM `Customers` c
-    LEFT JOIN `Orders` o ON(o.`CustomerId` = c.`Id`)
-        WHERE o.`Id` IS NULL
+SELECT NAME AS "Customers" FROM CUSTOMERS 
+WHERE ID NOT IN (SELECT CUSTOMERID FROM ORDERS)
+ORDER BY NAME;
