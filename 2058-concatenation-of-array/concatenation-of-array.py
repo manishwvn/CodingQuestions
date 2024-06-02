@@ -1,9 +1,15 @@
 from copy import deepcopy
 class Solution:
     def getConcatenation(self, nums: List[int]) -> List[int]:
+        
+        n = len(nums)
+        ans = [0] * (n * 2)
+        flag = False
+        for i in range(n*2):
+            j = i % n 
+            ans[i] = nums[j]
 
-        nums2 = deepcopy(nums)
-        print(nums2)
-        nums2.extend(nums)
-        return nums2
+        print(ans)
+        return ans
+            
         
