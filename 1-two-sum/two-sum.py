@@ -3,13 +3,12 @@ class Solution:
 
         if len(nums) == 2: return [0, 1]
 
-        diffs = {}
-        for i in range(0, len(nums)):
-            if target - nums[i] in diffs:
-                return [i, diffs[target - nums[i]]]
+        hm = {}
+        for i in range(len(nums)):
+            if target - nums[i] in hm:
+                return [i, hm[target - nums[i]]]
             else:
-                diffs[nums[i]] = i
+                hm[nums[i]] = i
 
-
-
+        return [-1, -1]
         
