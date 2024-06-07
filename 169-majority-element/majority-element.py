@@ -1,14 +1,18 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
 
-        #O(n) time - O(n) space
-        seen = {}
-        n = len(nums)
+        # O(n) Time and O(1) Space
+        # Boyer-Moore Algorithm
+        if len(nums) == 1:
+            return nums[0]
+
+        res, count = 0, 0
         for num in nums:
-            if num in seen:
-                seen[num] += 1
-            else:    
-                seen[num] = 1
-            if seen[num] > n // 2:
-                    return num
-        
+            if count == 0:
+                res = num
+            if num == res:
+                count += 1
+            else:
+                count -= 1
+
+        return res
