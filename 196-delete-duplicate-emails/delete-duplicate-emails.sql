@@ -1,5 +1,11 @@
-DELETE p1
-FROM Person p1
-JOIN Person p2
-ON p1.email = p2.email
-WHERE p1.id > p2.id;
+WITH RankedPersons AS (
+    SELECT id, email,
+           ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) AS row_num
+    FROM Person
+)
+DELETE FROM Person
+WHERE id IN (
+    SELECT id
+    FROM RankedPersons
+    WHERE row_num > 1
+);
