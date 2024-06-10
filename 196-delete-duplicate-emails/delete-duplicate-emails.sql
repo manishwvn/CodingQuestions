@@ -1,6 +1,5 @@
-DELETE FROM PERSON 
-WHERE ID NOT IN (
-    SELECT MIN(ID) 
-    FROM PERSON 
-    GROUP BY EMAIL
-);
+DELETE p1
+FROM Person p1
+JOIN Person p2
+ON p1.email = p2.email
+WHERE p1.id > p2.id;
