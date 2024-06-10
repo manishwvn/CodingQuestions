@@ -1,9 +1,6 @@
-DELETE FROM Person
-WHERE id IN (
-    SELECT id
-    FROM (
-        SELECT id, ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) AS row_num
-        FROM Person
-    )
-    WHERE row_num > 1
+DELETE FROM PERSON 
+WHERE ID NOT IN (
+    SELECT MIN(ID) 
+    FROM PERSON 
+    GROUP BY EMAIL
 );
