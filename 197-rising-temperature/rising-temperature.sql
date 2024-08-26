@@ -1,19 +1,10 @@
-WITH PreviousWeatherData AS
-(
-    SELECT 
-        id,
-        recordDate,
-        temperature, 
-        LAG(temperature, 1) OVER (ORDER BY recordDate) AS PreviousTemperature,
-        LAG(recordDate, 1) OVER (ORDER BY recordDate) AS PreviousRecordDate
-    FROM 
-        Weather
-)
-SELECT 
-    id 
-FROM 
-    PreviousWeatherData
+SELECT
+    T2.ID
+FROM
+    WEATHER T1
+JOIN
+    WEATHER T2
+ON
+    T1.RECORDDATE = T2.RECORDDATE - INTERVAL '1' DAY
 WHERE 
-    temperature > PreviousTemperature
-AND 
-    recordDate = DATE_ADD(PreviousRecordDate, INTERVAL 1 DAY);
+    T2.TEMPERATURE > T1.TEMPERATURE;
