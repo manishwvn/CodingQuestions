@@ -2,4 +2,4 @@ select
     tweet_id
 from
     tweets
-where length(content) > 15;
+where char_length(content) > 15;
