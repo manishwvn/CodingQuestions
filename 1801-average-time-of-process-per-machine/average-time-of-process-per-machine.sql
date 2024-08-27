@@ -1,17 +1,13 @@
-select
-    m1.machine_id,
-    abs(round(avg(m1.timestamp - m2.timestamp), 3)) as processing_time
-from
-    activity m1
-join
-    activity m2
-on
-    m1.machine_id = m2.machine_id
-    and
-    m1.process_id = m2.process_id
-    and
-    m1.activity_type = 'start' and m2.activity_type = 'end'
-group by
-    1;
-
-    
+SELECT
+    T1.MACHINE_ID,
+    ROUND(AVG(T2.timestamp - T1.timestamp)::DECIMAL, 3) AS processing_time
+FROM
+    ACTIVITY T1
+JOIN
+    ACTIVITY T2
+ON
+    T1.MACHINE_ID = T2.MACHINE_ID
+AND T1.PROCESS_ID = T2.PROCESS_ID
+AND T1.ACTIVITY_TYPE = 'start' AND T2.ACTIVITY_TYPE = 'end'
+GROUP BY T1.MACHINE_ID
+ORDER BY T1.MACHINE_ID;
