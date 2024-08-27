@@ -1,9 +1,9 @@
 SELECT
     S.USER_ID,
     ROUND(AVG(CASE
-        WHEN ACTION = 'confirmed' THEN 1
-        ELSE 0
-    END)::DECIMAL, 2) AS CONFIRMATION_RATE
+        WHEN C.ACTION = 'confirmed' THEN 1.00
+        ELSE 0.00
+    END), 2) AS CONFIRMATION_RATE
 FROM
     SIGNUPS S
 LEFT JOIN
