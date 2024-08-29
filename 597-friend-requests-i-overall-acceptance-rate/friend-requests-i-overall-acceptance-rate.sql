@@ -1,20 +1,22 @@
-with total_friend_requests as(
-    select count(*) as total_count from(
-        select distinct sender_id, send_to_id from FriendRequest
-    ) 
+WITH total_friend_requests AS (
+    SELECT COUNT(*) AS total_count 
+    FROM (
+        SELECT DISTINCT sender_id, send_to_id 
+        FROM FriendRequest
+    ) AS distinct_requests
 ),
-
-total_accepted_requests as (
-    select count(*) as accept_count from (
-        select distinct requester_id, accepter_id from RequestAccepted
-    )
+total_accepted_requests AS (
+    SELECT COUNT(*) AS accept_count 
+    FROM (
+        SELECT DISTINCT requester_id, accepter_id 
+        FROM RequestAccepted
+    ) AS distinct_acceptances
 )
-
-select 
-    case
-        when total_count = 0 then 0.00
-        else round((accept_count * 1.00 / total_count), 2) 
-        end as accept_rate
-from 
-    total_accepted_requests, 
-    total_friend_requests;
+SELECT 
+    CASE 
+        WHEN (SELECT total_count FROM total_friend_requests) = 0 THEN 0.00
+        ELSE ROUND(
+            (SELECT accept_count FROM total_accepted_requests)::DECIMAL /
+            (SELECT total_count FROM total_friend_requests), 2
+        )
+    END AS accept_rate;
