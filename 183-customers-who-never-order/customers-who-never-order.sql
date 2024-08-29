@@ -1,4 +1,10 @@
-SELECT NAME AS "Customers" FROM CUSTOMERS LEFT JOIN
-ORDERS
-ON CUSTOMERS.ID = ORDERS.CUSTOMERID
-WHERE ORDERS.CUSTOMERID IS NULL;
+select
+    c.name as customers
+from
+    Customers c
+left join
+    Orders o
+on
+    c.id = o.customerid
+where
+    o.customerid is NULL;
