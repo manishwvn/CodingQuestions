@@ -9,6 +9,5 @@ SELECT
     0.00) AS average_sessions_per_user
 FROM 
     Activity 
-WHERE 
-    activity_date >= '2019-06-28' 
-    AND activity_date <= '2019-07-27';
+WHERE activity_date:: DATE BETWEEN '2019-07-28'::DATE - INTERVAL '30 day' 
+AND '2019-07-27'::DATE
