@@ -2,7 +2,7 @@ WITH SingleNumbers AS (
     SELECT num
     FROM MyNumbers
     GROUP BY num
-    HAVING COUNT(*) = 1
+    HAVING COUNT(num) = 1
 )
 SELECT MAX(num) AS num
 FROM SingleNumbers;
