@@ -9,33 +9,26 @@ class Solution:
             'C' : 100,
             'D' : 500,
             'M' : 1000,
-            'IV' : 4,
-            'IX' : 9,
-            'XL' : 40,
-            'XC' : 90,
-            'CD' : 400,
-            'CM' : 900
+            # 'IV' : 4,
+            # 'IX' : 9,
+            # 'XL' : 40,
+            # 'XC' : 90,
+            # 'CD' : 400,
+            # 'CM' : 900
         }
 
         result = 0
         i = 0
-        while i < len(s) - 1:
-            
-            num = s[i]
-            num2 = ''
+        
+        while i < len(s):
 
-            num2 = num + s[i+1]
-            if num2 in symbols:
-                result += symbols[num2]
+            if i + 1 < len(s) and symbols[s[i]] < symbols[s[i+1]]:
+                result += symbols[s[i+1]] - symbols[s[i]]
                 i += 2
-            
+
             else:
-                result += symbols[num]
+                result += symbols[s[i]]
                 i += 1
 
-        if i == len(s) - 1:
-            result += symbols[s[i]]
-
         return result
-
         
