@@ -1,30 +1,18 @@
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        
-        merged = []
-        i, j = 0, 0
+        p3, p1, p2 = m + n - 1, m - 1, n - 1
 
-        while i < m and j < n:
-            if nums1[i] <= nums2[j]:
-                merged.append(nums1[i])
-                i += 1
+        while p1 > -1 and p2 > -1:
+            if nums1[p1] >= nums2[p2]:
+                nums1[p3] = nums1[p1]
+                p1 -= 1
             else:
-                merged.append(nums2[j])
-                j += 1
+                nums1[p3] = nums2[p2]
+                p2 -= 1
+            p3 -= 1
 
-        while i < m:
-            merged.append(nums1[i])
-            i += 1
-        
-        while j < n:
-            merged.append(nums2[j])
-            j += 1
-
-        for k in range(m+n):
-            nums1[k] = merged[k]
-
-            
-        
-        
-
-        
+        # If there are remaining elements in nums2, copy them over to nums1
+        while p2 > -1:
+            nums1[p3] = nums2[p2]
+            p3 -= 1
+            p2 -= 1
