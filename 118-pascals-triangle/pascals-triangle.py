@@ -1,17 +1,21 @@
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
-        result = []
-        for i in range(numRows):
-            row = []
-            for j in range(i + 1):
-                if j == 0 or j == i:
-                    row.append(1)
+
+        result = [[1]]
+        if numRows == 1: return result
+
+        for i in range(1, numRows):
+            temp = [1]
+
+            for j in range(1, i):
+                
+                if i == 1 and i == n:
+                    temp.append(result[i][j])
 
                 else:
-                    left = result[i - 1][j - 1]
-                    right = result[i - 1][j]
-                    row.append(left + right)
-
-            result.append(row)
+                    temp.append(result[i-1][j-1] + result[i-1][j])
+                    
+            temp.append(1)
+            result.append(temp)
 
         return result
