@@ -1,13 +1,24 @@
 class Solution:
     def isValid(self, s: str) -> bool:
+        
         stack = []
-        bracket_map = {')': '(', '}': '{', ']': '['}
 
         for char in s:
-            if char in bracket_map:  # If it's a closing bracket
-                if not stack or stack.pop() != bracket_map[char]:
-                    return False
-            else:  # If it's an opening bracket
+            if char in '({[':
                 stack.append(char)
+            
+            else:
+                if not stack:
+                    return False
 
-        return not stack  # Return True if stack is empty, else False
+                popped = stack.pop()
+                if popped == '(' and char != ')':
+                    return False
+                if popped == '{' and char != '}':
+                    return False
+                if popped == '[' and char != ']':
+                    return False
+                
+        return stack == []
+
+        
