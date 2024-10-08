@@ -3,7 +3,7 @@ class Solution:
 
         # abbc, abb, abcd
 
-        result = list(strs[0])            
+        result = strs[0]          
         
         for i in range(1, len(strs)):
             if strs[i] == "":
@@ -21,7 +21,7 @@ class Solution:
                 if result[j] != strs[i][j]: # a,a 
                     result = result[:j]
 
-        return ('').join(result)
+        return result
 
 
         
