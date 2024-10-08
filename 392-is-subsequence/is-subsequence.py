@@ -7,9 +7,7 @@ class Solution:
         while i < m and j < n:
             if s[i] == t[j]:
                 i += 1
-                j += 1
-            else:
-                j += 1
+            j += 1
         
         return i == m
         
