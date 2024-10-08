@@ -12,7 +12,7 @@ class Solution:
                 if j >= len(result):  # 0, 2
                     break
                 
-                if len(result) > len(strs[i]):
+                elif len(result) > len(strs[i]):
                     result = result[:len(strs[i])]
                 
                 if result[j] != strs[i][j]: # a,a 
