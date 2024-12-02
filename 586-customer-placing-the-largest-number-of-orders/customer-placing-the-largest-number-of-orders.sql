@@ -1,15 +1,12 @@
-with order_counts as (
+select customer_number
+from (
     select
         customer_number,
-        count(*) as orders
+        count(*) as orders,
+        row_number() over (order by count(*) desc) as rnk
     from
         orders
     group by
         customer_number
-)
-select
-    customer_number
-from
-    order_counts
-where
-    orders = (select max(orders) from order_counts);
+) ranked_orders
+where rnk = 1;
