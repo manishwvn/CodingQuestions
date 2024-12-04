@@ -1,12 +1,13 @@
-SELECT
-    V.CUSTOMER_ID AS customer_id,
-    COUNT(*) AS count_no_trans
-FROM
-    VISITS V
-LEFT JOIN
-    TRANSACTIONS T
-ON 
-    V.VISIT_ID = T.VISIT_ID
-WHERE
-    T.TRANSACTION_ID IS NULL
-GROUP BY V.CUSTOMER_ID;
+select
+    v.customer_id as customer_id,
+    count(v.visit_id) as count_no_trans
+from
+    visits v
+left join
+    transactions t
+on
+    v.visit_id = t.visit_id
+where
+    t.transaction_id is null
+group by
+    v.customer_id;
