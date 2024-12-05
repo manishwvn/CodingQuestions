@@ -5,6 +5,6 @@ from
 join
     Weather w2
 on
-    datediff(w1.recordDate, w2.recordDate) = 1
+    w2.recordDate = w1.recordDate - INTERVAL 1 DAY
 where
     w1.temperature > w2.temperature;
