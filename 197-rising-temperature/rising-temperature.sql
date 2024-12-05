@@ -1,10 +1,10 @@
-SELECT
-    T2.ID
-FROM
-    WEATHER T1
-JOIN
-    WEATHER T2
-ON
-    T1.RECORDDATE = T2.RECORDDATE - INTERVAL '1' DAY
-WHERE 
-    T2.TEMPERATURE > T1.TEMPERATURE;
+select
+    w1.id as Id
+from
+    Weather w1
+join
+    Weather w2
+on
+    datediff(w1.recordDate, w2.recordDate) = 1
+where
+    w1.temperature > w2.temperature;
