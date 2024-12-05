@@ -1,8 +1,10 @@
-SELECT
-    P.PRODUCT_NAME,
-    S.YEAR,
-    S.PRICE
-FROM PRODUCT P
-JOIN
-SALES S
-ON P.PRODUCT_ID = S.PRODUCT_ID;
+select
+    p.product_name,
+    s.year,
+    s.price
+from
+    product p
+join
+    sales s
+on
+    p.product_id = s.product_id;
