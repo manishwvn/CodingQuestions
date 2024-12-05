@@ -1,13 +1,7 @@
-select t.seller_id from(
-    select
-    s.seller_id,
-    dense_rank() over( order by sum(s.price) desc) as rnk
-from
-    sales s
-join
-    product p
-on
-    s.product_id = p.product_id
-group by
-    s.seller_id) as t
-where t.rnk = 1;
+WITH CTE AS (
+SELECT seller_id, SUM(price) AS total_price
+  FROM Sales
+ GROUP BY 1)
+SELECT DISTINCT seller_id
+  FROM CTE
+ WHERE total_price = (SELECT MAX(total_price) FROM CTE) 
