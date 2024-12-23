@@ -1,3 +1,8 @@
-select * from Cinema where 
-mod(id, 2) <> 0 and description <> 'boring'
-order by rating desc;
+SELECT
+    *
+FROM
+    CINEMA
+WHERE
+    ID % 2 <> 0
+AND UPPER(DESCRIPTION) <> 'BORING'
+ORDER BY RATING DESC;
