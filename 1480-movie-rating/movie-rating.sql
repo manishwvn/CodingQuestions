@@ -1,7 +1,6 @@
 with user_ratings as (
     select
-        u.name as name,
-        count(*) as ratings
+        u.name as name
     from
         users u
     join
@@ -11,14 +10,13 @@ with user_ratings as (
     group by
         1
     order by
-        ratings desc, name asc
+        count(*) desc, name asc
     limit 1
     ),
 
 rating_avgs as (
     select
-        m.title as title,
-        avg(rating) as rating_avg
+        m.title as title
     from
         movies m
     join
@@ -28,9 +26,9 @@ rating_avgs as (
     where
         month(created_at) = 2 and year(created_at) = 2020
     group by
-        1
+        title
     order by
-        rating_avg desc, title asc
+        avg(rating) desc, title asc
     limit 1
     )
 
