@@ -1,7 +1,7 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
 
-        prev, curr_profit, max_profit = prices[0], 0, 0
+        prev, curr_profit, max_profit = float('inf'), 0, 0
 
         for curr in prices:
             if curr < prev:
