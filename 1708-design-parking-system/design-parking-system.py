@@ -8,9 +8,8 @@ class ParkingSystem:
         }
         
     def addCar(self, carType: int) -> bool:
-        available_spaces = self.spaces[carType]
         
-        if available_spaces:
+        if self.spaces[carType]:
             self.spaces[carType] -= 1
             return True
         return False
