@@ -16,6 +16,6 @@ class Solution:
             left = dfs(node.left, max_depth)
             right = dfs(node.right, max_depth)
             return max(left, right)
-    
+
+        if not root: return 0
         return dfs(root, 0)
-        
