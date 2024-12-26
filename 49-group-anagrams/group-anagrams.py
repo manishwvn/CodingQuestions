@@ -14,4 +14,4 @@ class Solution:
             else:
                 result[tuple(counts)] = [str]
 
-        return result.values()
+        return list(result.values())
