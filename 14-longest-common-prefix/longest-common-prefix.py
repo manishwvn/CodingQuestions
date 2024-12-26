@@ -1,27 +1,24 @@
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
+        if not strs:  # Handle empty input
+            return ""
 
-        # abbc, abb, abcd
+        # Find the shortest string without using min(..., key=len)
+        min_len = float('inf')
+        min_str = ""
+        for s in strs:
+            if len(s) < min_len:
+                min_len = len(s)
+                min_str = s
 
-        result = strs[0]          
-        
-        for i in range(1, len(strs)):
-            if strs[i] == "":
-                    return ''
+        if not min_str: #handle empty string in the list
+            return ""
 
-            for j in range(len(strs[i])):
-
-                # if j >= len(result):  # abcd , ab
-                #     break
-                if j < len(result) or len(result) > len(strs[i]):
-                    result = result[:len(strs[i])]
-                else:
-                    break     
-                
-                if result[j] != strs[i][j]: # a,a 
-                    result = result[:j]
+        result = ""
+        for j in range(len(min_str)):
+            for i in range(len(strs)):
+                if j >= len(strs[i]) or min_str[j] != strs[i][j]:
+                    return result  # Important: Return immediately if mismatch
+            result += min_str[j] #only add to result if all match
 
         return result
-
-
-        
