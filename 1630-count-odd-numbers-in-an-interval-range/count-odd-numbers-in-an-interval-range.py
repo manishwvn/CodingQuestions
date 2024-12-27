@@ -1,12 +1,9 @@
 class Solution:
     def countOdds(self, low: int, high: int) -> int:
+        odd = (high - low) // 2
 
-        range = high - low + 1
-        count = range // 2
-        if range % 2 and low % 2:
-            count += 1
-        return count
+        if low % 2 != 0 or high % 2 != 0:
+            odd += 1
 
-
-
+        return odd
         
