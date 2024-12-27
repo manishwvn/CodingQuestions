@@ -1,16 +1,18 @@
-with points_order as (
+with distinct_points as(
     select
-        *,
-        row_number() over() as pt_order
+        p1.x as x1,
+        p1.y as y1,
+        p2.x as x2,
+        p2.y as y2
     from
-        point2d
-)
+        point2d p1
+    cross join
+        point2d p2
+    where
+        (p1.x, p1.y) != (p2.x, p2.y))
 
 select
-    min(round(sqrt(pow((o1.x - o2.x),2) + pow((o1.y - o2.y), 2)), 2)) as shortest
+    round(min(sqrt(pow((x1-x2), 2) + pow((y1-y2),2))), 2) as shortest
 from
-    points_order o1
-join
-    points_order o2
-on
-    o1.pt_order < o2.pt_order
+    distinct_points;
+
