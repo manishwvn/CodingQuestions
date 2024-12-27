@@ -19,4 +19,6 @@ select
 from
     cte2
 where
-    visited_on >= (select visited_on from cte2 order by visited_on limit 1) + 6;
+    visited_on >= (select visited_on from cte2 order by visited_on limit 1) + 6
+order by
+    visited_on;
