@@ -7,9 +7,9 @@ BEGIN
         where
             amount >= minAmount
         and
-            time_stamp >= cast(startDate as datetime)
+            time_stamp >= startDate
         and
-            time_stamp <= cast(endDate as datetime)
+            time_stamp <= endDate
         order by
             user_id;
 END
