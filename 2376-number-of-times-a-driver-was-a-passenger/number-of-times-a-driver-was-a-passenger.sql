@@ -1,5 +1,5 @@
 select
-    distinct r1.driver_id,
+    r1.driver_id,
     count(distinct r2.ride_id) as cnt
 from
     rides r1
