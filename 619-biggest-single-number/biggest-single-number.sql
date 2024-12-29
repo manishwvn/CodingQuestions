@@ -1,8 +1,8 @@
-WITH SingleNumbers AS (
-    SELECT num
-    FROM MyNumbers
-    GROUP BY num
-    HAVING COUNT(num) = 1
-)
-SELECT MAX(num) AS num
-FROM SingleNumbers;
+select case when count(*) > 0 then max(num)
+            else null
+            end as num from (select
+    num
+from
+    MyNumbers
+group by num
+having count(num) = 1) as t;
