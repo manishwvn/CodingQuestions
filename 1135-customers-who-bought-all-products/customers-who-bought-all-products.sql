@@ -1,11 +1,15 @@
 SELECT
-  customer_id
+  c.customer_id
 FROM
-  Customer
+  Customer c
+join
+    product p
+on
+    c.product_key = p.product_key
 GROUP BY
   customer_id
 HAVING
-  COUNT(DISTINCT product_key) = (
+  COUNT(DISTINCT c.product_key) = (
     SELECT
       COUNT(product_key)
     FROM
