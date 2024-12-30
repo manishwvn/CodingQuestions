@@ -1,7 +1,7 @@
 with cumulative_wts as (
 select
     *,
-    sum(weight) over(order by turn rows between unbounded preceding and current row) as cum_weight
+    sum(weight) over(order by turn ) as cum_weight
 from
     queue)
 
