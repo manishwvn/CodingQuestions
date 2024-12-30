@@ -17,9 +17,16 @@ RecurringPlayers AS (
     ON
         fl.player_id = a.player_id
     AND
-        a.event_date = fl.first_login_date + INTERVAL '1 day'
+        a.event_date = fl.first_login_date + INTERVAL 1 day
 )
+
 SELECT
-    ROUND(COUNT(rp.player_id)::numeric / (SELECT COUNT(DISTINCT player_id) FROM activity)::numeric, 2) AS fraction
+    ROUND(
+        COUNT(rp.player_id) / (
+            SELECT COUNT(DISTINCT player_id)
+            FROM activity
+        ), 
+        2
+    ) AS fraction
 FROM
     RecurringPlayers rp;
