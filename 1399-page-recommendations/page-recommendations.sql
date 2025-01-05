@@ -1,14 +1,3 @@
--- select
---     distinct page_id
--- from
---     likes l
--- join
---     friendship f
--- on
---     l.user_id = f.user2_id or l.user_id = f.user1_id
--- where
---     l.user_id <> 1
-
 with cte as (
 select
     case
@@ -17,15 +6,6 @@ select
         end as friends
 from
     friendship)
-
--- select distinct page_id as recommended_page
--- from
---     likes
--- where user_id in (select friends from cte)
--- and page_id not in (select page_id from likes where user_id  = 1)
-
--- select * from cte
-
 
 select
     distinct page_id as recommended_page
