@@ -1,17 +1,23 @@
-with cte as (
-select
-    case
-        when user1_id = 1 then user2_id
-        when user2_id = 1 then user1_id
-        end as friends
-from
-    friendship)
+-- SELECT DISTINCT l.page_id AS recommended_page
+-- FROM Friendship f
+-- INNER JOIN Likes l
+--   ON (l.user_id = f.user2_id AND f.user1_id = 1) OR (l.user_id = f.user1_id AND f.user2_id = 1)
+-- WHERE l.page_id NOT IN (SELECT DISTINCT page_id FROM Likes WHERE user_id = 1)
+
 
 select
     distinct page_id as recommended_page
 from
-    likes
-where
-    user_id in (select friends from cte)
+    friendship f
+join
+    likes l
+on
+    (l.user_id = f.user2_id
     and
-    page_id not in (select page_id from likes where user_id = 1)
+    f.user1_id = 1)
+    or
+    (l.user_id = f.user1_id
+    and
+    f.user2_id = 1)
+where
+    l.page_id not in (select distinct page_id from likes where user_id = 1)
