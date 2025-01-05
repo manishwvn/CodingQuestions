@@ -21,13 +21,21 @@ select
 from
     friends
 group by
-    activity)
+    activity),
+
+cte2 as (
+    select max(counts) as counts from cte
+    union
+    select min(counts) as counts from cte
+)
 
 select
     activity
 from
-    cte
+    cte c1
+left join
+    cte2 c2
+on
+    c1.counts = c2.counts
 where
-    counts not in (select max(counts) from cte)
-and
-    counts not in (select min(counts) from cte);
+    c2.counts is null;
