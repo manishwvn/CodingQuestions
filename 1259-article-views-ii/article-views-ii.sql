@@ -1,6 +1,7 @@
 select
     distinct 
     viewer_id as id
+    -- ,count(distinct article_id) as counts
 from
     views
 group by
