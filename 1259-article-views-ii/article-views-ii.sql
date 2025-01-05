@@ -1,14 +1,14 @@
 select
-    distinct 
-    viewer_id as id
-    -- ,count(distinct article_id) as counts
+    distinct v1.viewer_id as id
 from
-    views
-group by
-    view_date, viewer_id
-having
-    count(distinct article_id) > 1
+    views v1
+join
+    views v2
+on
+    v1.viewer_id = v2.viewer_id
+and
+    v1.view_date = v2.view_date
+and
+    v1.article_id < v2.article_id
 order by
-    id;
-
-
+    v1.viewer_id
