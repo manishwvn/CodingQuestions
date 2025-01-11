@@ -1,12 +1,15 @@
 class Solution:
     def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:
-        
-        for _ in range(k):
-            idx = 0
-            for i in range(len(nums)):
-                if nums[i] < nums[idx]:
-                    idx = i
-            nums[idx] *= multiplier
 
-        return nums
+        result = nums.copy()
+
+        heap = [(n, i) for i, n in enumerate(nums)]
+        heapq.heapify(heap)
+
+        for _ in range(k):
+            n, i = heapq.heappop(heap)
+            result[i] *= multiplier
+            heapq.heappush(heap, (result[i], i))
+
+        return result
         
