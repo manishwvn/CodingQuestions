@@ -1,17 +1,14 @@
 class Solution:
     def isMonotonic(self, nums: List[int]) -> bool:
 
-        is_inc = True
+        is_inc, is_dec = True, True
 
         for i in range(len(nums) - 1):
             if nums[i] > nums[i+1]:
                 is_inc = False
-                break
+            if nums[i] < nums[i+1]:
+                    is_dec = False
         
-        if not is_inc:
-            for i in range(len(nums) - 1):
-                if nums[i] < nums[i+1]:
-                    return False
-        return True
+        return is_inc or is_dec
 
         
