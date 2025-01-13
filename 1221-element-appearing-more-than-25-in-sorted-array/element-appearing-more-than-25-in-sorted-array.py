@@ -1,9 +1,17 @@
 class Solution:
     def findSpecialInteger(self, arr: List[int]) -> int:
         n = len(arr)
-        counts = Counter(arr)
+        if n == 1:
+            return arr[0]
+ 
+        count = 1
+        for i in range(1,n):
+            if arr[i-1] == arr[i]:
+                count += 1
+            else:
+                if count > n / 4:
+                    return arr[i-1]
+                count = 1
 
-        for key, val in counts.items():
-            if val > n / 4:
-                return key
-        
+        if count > n / 4:
+            return arr[-1]        
