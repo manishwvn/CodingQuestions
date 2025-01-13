@@ -1,5 +1,14 @@
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
 
-        return list((Counter(t) - Counter(s)).keys())[0]
+        result = 0
+
+        for char in s:
+            result ^= ord(char)
+        
+        for char in t:
+            result ^= ord(char)
+        
+        return chr(result)
+
         
