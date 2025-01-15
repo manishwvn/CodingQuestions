@@ -11,10 +11,19 @@ class Solution:
     def pickIndex(self) -> int:
         target = random.randint(1, self.total_sum)
 
-        for i in range(len(self.prefix_sums)):
-            if target <= self.prefix_sums[i]:
-                return i
+        l = 0
+        r = len(self.prefix_sums)
 
+        while l <= r:
+            mid = (l + r) // 2
+
+            if self.prefix_sums[mid] < target:
+                l = mid + 1
+            
+            else:
+                r = mid - 1
+        
+        return l
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(w)
