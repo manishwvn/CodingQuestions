@@ -1,16 +1,11 @@
 select
-    distinct t1.num as ConsecutiveNums
+    distinct l1.num as ConsecutiveNums
 from
-    logs t1
-join
-    logs t2
-on
-    t1.id = t2.id - 1
-join
-    logs t3
-on
-    t2.id = t3.id - 1
+    logs l1,
+    logs l2,
+    logs l3
 where
-    t1.num = t2.num
-and
-    t2.num = t3.num;
+    l1.id = l2.id - 1
+    and l2.id = l3.id - 1
+    and l1.num = l2.num
+    and l2.num = l3.num;
