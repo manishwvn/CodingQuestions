@@ -13,9 +13,7 @@ from
 left join
     matches m
 on
-    t.team_id = m.host_team
-or
-    t.team_id = m.guest_team
+    t.team_id in (m.host_team, m.guest_team)
 group by
     t.team_id
 order by
