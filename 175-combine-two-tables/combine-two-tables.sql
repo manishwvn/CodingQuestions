@@ -1,16 +1,11 @@
-SELECT 
-    FIRSTNAME, 
-    LASTNAME, 
-    CITY, 
-    STATE
-FROM 
-    PERSON AS A
-    
-LEFT JOIN 
-    ADDRESS AS B
-
-ON 
-    A.PERSONID = B.PERSONID;
-
-
-
+select
+    p.firstName,
+    p.lastName,
+    a.city,
+    a.state
+from
+    person p
+left join
+    address a
+on
+    p.personId = a.personId;
