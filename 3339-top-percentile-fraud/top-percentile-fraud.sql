@@ -1,14 +1,19 @@
+with cte as (select
+    *,
+    rank() over(partition by state order by fraud_score desc) as rnk,
+    count(*) over(partition by state) as state_count
+from
+    fraud)
+
 select
     policy_id,
     state,
     fraud_score
 from
-    (
-    select
-        *,
-        rank() over(partition by state order by fraud_score desc) as rnk
-    from
-        fraud) t
+    cte
 where
-    rnk = 1
-order by state, fraud_score desc, policy_id asc;
+    rnk <= ceil(state_count * 0.05)
+order by
+    state,
+    fraud_score desc,
+    policy_id;
