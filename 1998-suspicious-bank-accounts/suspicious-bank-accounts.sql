@@ -1,11 +1,9 @@
--- total income > max_income for two or 3 consecutive months
--- total income  = deposit type = creditor
 with cte as(
 select
     t.account_id,
     sum(t.amount) as income,
     month(day) as month,
-    lead(month(t.day)) over(partition by a.account_id order by month(t.day)) as next_month,
+    row_number() over(partition by a.account_id order by month(t.day)) as row_num,
     a.max_income
 from
     transactions t
@@ -20,21 +18,28 @@ group by
 having
     income > max_income
 order by
-    account_id)
+    account_id),
+
+cte2 as (
+    select
+        c1.account_id,
+        c1.income,
+        c1.month,
+        c2.month as next_month,
+        c1.max_income
+    from
+        cte c1
+    left join
+        cte c2
+    on
+        c1.account_id = c2.account_id
+        and
+        c1.row_num + 1 = c2.row_num
+)
 
 select
     distinct account_id
 from
-    cte
+    cte2
 where
     next_month - month = 1;
-
--- select
---     account_id,
---     amount,
---     month - rnk,
---     max_income
--- from
---     cte
--- group by
---     month - rnk
