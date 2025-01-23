@@ -21,4 +21,4 @@ on
 group by
     c.student_id
 having
-    count(distinct c.course_id) = sum(if(e.grade = 'A',1,0));
+    count(distinct c.course_id) = sum(case when e.grade = 'A' then 1 else 0 end);
