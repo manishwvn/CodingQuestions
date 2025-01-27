@@ -1,15 +1,16 @@
-with cte as (select
-    *,
-    lead(num, 1) over() as next_1,
-    lead(num, 2) over() as next_2
-from
-    logs)
-
 select
-    distinct num as ConsecutiveNums
+    distinct l1.num as ConsecutiveNums
 from
-    cte
+    logs l1
+join
+    logs l2
+on
+    l1.id + 1 = l2.id
+join
+    logs l3
+on
+    l2.id + 1 = l3.id
 where
-    num = next_1
+    l1.num = l2.num
     and
-    num = next_2
+    l2.num = l3.num
