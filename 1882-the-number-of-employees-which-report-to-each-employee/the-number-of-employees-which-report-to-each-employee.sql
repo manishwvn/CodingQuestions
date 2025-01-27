@@ -5,12 +5,12 @@ select
     round(avg(r.age)) as average_age
 from
     employees e
-left join
+join
     employees r
 on
     e.employee_id = r.reports_to
-where
-    r.reports_to is not null
+-- where
+--     r.reports_to is not null
 group by
     e.employee_id, e.name
 order by
