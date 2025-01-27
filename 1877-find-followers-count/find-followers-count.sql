@@ -1,6 +1,6 @@
 select
     distinct user_id,
-    count(1) as followers_count
+    count(user_id) as followers_count
 from
     followers
 group by
