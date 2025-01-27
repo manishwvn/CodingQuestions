@@ -3,4 +3,4 @@ select
 from
     courses
 group by class
-having count(*) >= 5;
+having count(distinct student) >= 5;
