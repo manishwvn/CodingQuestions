@@ -4,7 +4,7 @@ select
     s.price
 from
     product p
-join
+right join
     sales s
 on
     p.product_id = s.product_id;
