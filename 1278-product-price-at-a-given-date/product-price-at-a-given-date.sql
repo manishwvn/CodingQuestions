@@ -1,27 +1,20 @@
-
-with upd_prices as (
-    select
+WITH upd_prices AS (
+    SELECT
         *,
-        dense_rank() over(partition by product_id order by change_date desc) rnk
-    from
+        DENSE_RANK() OVER (PARTITION BY product_id ORDER BY change_date DESC) AS rnk
+    FROM
         products
-    where
-        change_date <= date('2019-08-16'))
-
-select
-    product_id,
-    new_price as price
-from
-    upd_prices
-where
-    rnk = 1
-union
-select
-    product_id,
-    10 as price
-from
-    products
-where
-    product_id not in (
-        select product_id from upd_prices
-    );
+    WHERE
+        change_date <= DATE('2019-08-16')
+)
+SELECT
+    p.product_id,
+    COALESCE(up.new_price, 10) AS price
+FROM
+    products p
+LEFT JOIN
+    upd_prices up
+ON
+    p.product_id = up.product_id AND up.rnk = 1
+GROUP BY
+    p.product_id, up.new_price;
