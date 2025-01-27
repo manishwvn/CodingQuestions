@@ -1,16 +1,23 @@
 with cte as (select
     num,
-    id - row_number() over(partition by num order by id) as grouped
+    row_number() over(order by id) as rn_id,
+    row_number() over(partition by num order by id) as rn_num
 from
-    logs)
+    logs),
+
+cte2 as (
+    select
+        num,
+        rn_id - rn_num as grouped
+    from
+        cte
+)
 
 select
     distinct num as ConsecutiveNums
 from
-    cte
+    cte2
 group by
     num, grouped
 having
     count(*) >= 3;
-
--- select * from cte2
