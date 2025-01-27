@@ -7,6 +7,6 @@ join
 on
     e1.id = e2.managerid
 group by
-    e1.name, e1.id
+    e1.id, e1.name
 having
     count(*) >= 5;
