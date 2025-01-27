@@ -1,6 +1,6 @@
 select
     r.contest_id,
-    round(count(distinct u.user_id) / (select count(1) from users) * 100, 2) as percentage
+    round(count(distinct r.user_id) / (select count(1) from users) * 100, 2) as percentage
 from
     register r
 left join
