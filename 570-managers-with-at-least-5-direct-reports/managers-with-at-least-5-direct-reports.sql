@@ -9,4 +9,4 @@ on
 group by
     e1.id, e1.name
 having
-    count(*) >= 5;
+    count(e1.id) >= 5;
