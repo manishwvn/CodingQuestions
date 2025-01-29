@@ -1,21 +1,29 @@
-with id_comb as (
+with id_comb as(
     select
         requester_id as id,
-        accepter_id
+        accepter_id as friend_id
     from
         requestaccepted
     union
     select
-        accepter_id as id,
+        accepter_id,
         requester_id
     from
-        requestaccepted)
-
+        requestaccepted
+),
+cte2 as (
 select
     id,
-    count(distinct accepter_id) as num
+    count(friend_id) as num,
+    dense_rank() over(order by count(friend_id) desc) as rnk
 from
     id_comb
-group by id
-order by num desc
-limit 1
+group by
+    id)
+
+select
+    id, num
+from
+    cte2
+where
+    rnk = 1;
