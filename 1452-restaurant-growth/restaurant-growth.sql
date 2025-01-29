@@ -48,7 +48,9 @@ on
 where
     datediff(c1.visited_on, c2.visited_on) between 0 and 6
     and
-    c1.visited_on >= (select min(visited_on) + interval 6 day from customer))
+    c1.visited_on >= (select min(visited_on) + interval 6 day from customer)
+order by
+    1, 3)
 
 select
     visited_on1 as visited_on,
@@ -60,3 +62,4 @@ group by
     1
 order by
     1;
+
