@@ -7,7 +7,7 @@ with cte as (
         dense_rank() over(partition by o.product_id order by o.order_date desc) as rnk
     from
         orders o
-    left join
+    join
         products p
     on
         o.product_id = p.product_id)
