@@ -1,20 +1,10 @@
-with first_logins as (
-    select
-        player_id,
-        min(event_date) as min_date
-    from
-        activity
-    group by
-        1)
-
 select
-    f.player_id,
-    a.device_id
-from
-    first_logins f
-join
-    activity a
-on
-    f.player_id = a.player_id
+    player_id, device_id
+from(
+    select
+        *,
+        dense_rank() over(partition by player_id order by event_date) as rnk
+    from
+        activity) t
 where
-    f.min_date = a.event_date;
+    t.rnk = 1;
