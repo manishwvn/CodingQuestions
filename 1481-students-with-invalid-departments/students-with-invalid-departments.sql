@@ -1,9 +1,9 @@
 select
     s.id, s.name
 from
-    departments d
-right join
     students s
+left join
+    departments d
 on
     d.id = s.department_id
 where
