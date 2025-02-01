@@ -1,19 +1,12 @@
-with cte as (select
-        *
-    from
-        schools s
-    left join
-        exam e
-    on
-        s.capacity >= e.student_count),
-
-cte2 as (
 select
-    school_id,
-    score,
-    dense_rank() over(partition by school_id order by capacity desc, score) as rnk
+    s.school_id,
+    coalesce(min(e.score), -1) as score
 from
-    cte)
+    schools s
+left join
+    exam e
+on
+    s.capacity >= e.student_count
+group by
+    s.school_id
 
-select
-    school_id, coalesce(score,-1) as score from cte2 where rnk = 1;
