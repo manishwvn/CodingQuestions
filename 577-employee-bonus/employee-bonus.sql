@@ -8,6 +8,4 @@ left join
 on
     e.empid = b.empid
 where
-    b.bonus < 1000
-or
-    b.bonus is null;
+    coalesce(b.bonus, 0) < 1000;
