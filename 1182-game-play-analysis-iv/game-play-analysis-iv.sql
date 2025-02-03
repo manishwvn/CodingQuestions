@@ -1,32 +1,37 @@
-WITH FirstLogin AS (
-    SELECT
-        player_id,
-        MIN(event_date) AS first_login_date
-    FROM
-        activity
-    GROUP BY
-        player_id
+with login_ranks as (select
+    *,
+    dense_rank() over(partition by player_id order by event_date) as login_rank
+from
+    activity
 ),
-RecurringPlayers AS (
-    SELECT
-        fl.player_id
-    FROM
-        FirstLogin fl
-    JOIN
-        activity a
-    ON
-        fl.player_id = a.player_id
-    AND
-        a.event_date = fl.first_login_date + INTERVAL 1 day
+
+first_logins as(
+    select
+        player_id,
+        event_date as first_login
+    from
+        login_ranks
+    where
+        login_rank = 1
+),
+
+second_logins as (
+    select
+        player_id,
+        event_date as second_login
+    from
+        login_ranks
+    where
+        login_rank = 2
 )
 
-SELECT
-    ROUND(
-        COUNT(rp.player_id) / (
-            SELECT COUNT(DISTINCT player_id)
-            FROM activity
-        ), 
-        2
-    ) AS fraction
-FROM
-    RecurringPlayers rp;
+select
+    round(count(*) / (select count(distinct player_id) from activity), 2) as fraction
+from
+    first_logins fl
+join
+    second_logins sl
+on
+    fl.player_id = sl.player_id
+where
+    sl.second_login = fl.first_login + interval '1' day;
