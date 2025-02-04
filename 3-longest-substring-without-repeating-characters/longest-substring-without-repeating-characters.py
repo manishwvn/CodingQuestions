@@ -1,26 +1,14 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        if not s or len(s) == 0:
-            return 0
-        if len(s) == 1:
-            return 1
-         
-        char_set = set(s[0])
-        i, j = 0, 1
-        length = 0
-        while j < len(s):
-            if s[j] not in char_set:
-                char_set.add(s[j])
-                j += 1
-                
-            else:
-                char_set.remove(s[i])
-                i += 1
-        
-            length = max(length, len(char_set))
+        char_index = {}  # Stores last seen index of each character
+        i = 0  # Left pointer
+        length = 0  # Max length
+
+        for j in range(len(s)):
+            if s[j] in char_index and char_index[s[j]] >= i:
+                i = char_index[s[j]] + 1  # Move `i` past the last occurrence
+
+            char_index[s[j]] = j  # Update last seen index
+            length = max(length, j - i + 1)  # Track max substring length
+
         return length
-                
-                
-                
-            
-        
