@@ -5,11 +5,9 @@ class Solution:
         curr_profit, max_profit = 0, 0
 
         for curr in prices:
-            if curr < prev:
-                prev = curr
-            else:
+            if curr > prev:
                 curr_profit = curr - prev
                 max_profit += curr_profit
-                prev = curr
+            prev = curr
         return max_profit
         
