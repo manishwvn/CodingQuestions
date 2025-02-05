@@ -16,8 +16,8 @@ with cte as (
 cte2 as (
     select 
         *,
-        first_value(recipient_id) over(partition by caller_id, date(call_time) order by call_time asc) as first_call,
-        first_value(recipient_id) over(partition by caller_id, date(call_time) order by call_time desc) as last_call
+        dense_rank() over(partition by caller_id, date(call_time) order by call_time asc) as first_rnk,
+        dense_rank() over(partition by caller_id, date(call_time) order by call_time desc) as last_rnk
     from cte)
 
 select
@@ -25,5 +25,10 @@ select
 from
     cte2
 where
-    first_call = last_call;
+    first_rnk = 1
+    or last_rnk = 1
+group by
+    user_id, date(call_time)
+having
+    count(distinct recipient_id) = 1
 
