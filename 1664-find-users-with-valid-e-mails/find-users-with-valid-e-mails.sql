@@ -29,4 +29,4 @@
 SELECT user_id, name, mail
 FROM Users
 -- Note that we also escaped the `@` character, as it has a special meaning in some regex flavors
-WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*\\@leetcode\\.com$';
+WHERE mail is not null and REGEXP_LIKE (mail,'^[a-zA-Z][a-zA-Z0-9_.-]*\\@leetcode\\.com$');
