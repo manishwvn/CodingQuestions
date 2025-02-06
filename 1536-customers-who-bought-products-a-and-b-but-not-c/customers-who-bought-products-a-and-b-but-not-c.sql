@@ -1,30 +1,8 @@
-with cte as (
-    select
-        o.*,
-        c.customer_name
-    from
-        orders o
-    left join
-        customers c
-    on
-        o.customer_id = c.customer_id),
-
-cte2 as (
-    select
-        customer_id,
-        customer_name,
-        group_concat(distinct product_name order by product_name) as products
-    from
-        cte
-    group by
-        customer_id
-    having
-        products like 'A,B%'
-        and
-        products not like '%C%')
-
-select
-    customer_id,
-    customer_name
-from
-    cte2;
+SELECT c.customer_id, c.customer_name
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id
+HAVING SUM(CASE WHEN product_name = 'A' THEN 1 ELSE 0 END) > 0
+    AND SUM(CASE WHEN product_name = 'B' THEN 1 ELSE 0 END) > 0
+    AND SUM(CASE WHEN product_name = 'C' THEN 1 ELSE 0 END) = 0
+ORDER BY c.customer_id;
