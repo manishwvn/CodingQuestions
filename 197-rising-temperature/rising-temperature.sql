@@ -1,17 +1,10 @@
-with cte as (
-    select
-        *,
-        lag(recordDate) over(order by recordDate) as prevDate,
-        lag(temperature) over(order by recordDate) as prevTemp
-    from
-        Weather
-)
-
-select
-    id
-from
-    cte
-where
-    temperature > prevTemp
-    and
-    datediff(recordDate, prevDate) = 1;
+SELECT
+    T2.ID
+FROM
+    WEATHER T1
+JOIN
+    WEATHER T2
+ON
+    T1.RECORDDATE = T2.RECORDDATE - INTERVAL '1' DAY
+WHERE 
+    T2.TEMPERATURE > T1.TEMPERATURE;
