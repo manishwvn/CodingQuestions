@@ -4,7 +4,7 @@ with id_comb as(
         accepter_id as friend_id
     from
         requestaccepted
-    union
+    union all
     select
         accepter_id,
         requester_id
