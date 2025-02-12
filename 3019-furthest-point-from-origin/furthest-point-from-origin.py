@@ -11,10 +11,5 @@ class Solution:
             else:
                 _ += 1
         
-        if l > r:
-            return l + _ - r
-        elif r > l:
-            return r + _ - l
-        else:
-            return _
+        return _ + abs(l - r)
         
