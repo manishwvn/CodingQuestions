@@ -2,7 +2,7 @@ with recursive cte as (
 
     
     select employee_id from employees where manager_id = 1 and employee_id <> 1
-    union
+    union all
     
     select e.employee_id
     from
