@@ -7,7 +7,7 @@ class Solution:
         for num in nums:
             if num in numset: 
                 return True
-            else:
-                numset.add(num)
+            
+            numset.add(num)
 
         return False
