@@ -1,23 +1,18 @@
+from typing import List
+
 class Solution:
     def thirdMax(self, nums: List[int]) -> int:
-        
-        if len(nums) == 1: return nums[0]
-
-        first = -float('inf')
+        first = second = third = -float('inf')
 
         for num in nums:
-            first = max(first, num)
-        
-        second = -float('inf')
-
-        for num in nums:
-            if num > second and num != first:
-                second = num
-
-        third = -float('inf')
-        for num in nums:
-            if num > third and num != first and num != second:
+            if num in (first, second, third):
+                continue
+            
+            if num > first:
+                first, second, third = num, first, second
+            elif num > second:
+                second, third = num, second
+            elif num > third:
                 third = num
 
         return third if third != -float('inf') else first
-        
