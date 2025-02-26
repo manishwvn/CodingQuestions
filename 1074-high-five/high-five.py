@@ -1,20 +1,21 @@
+from collections import defaultdict
+import heapq
+from typing import List
+
 class Solution:
     def highFive(self, items: List[List[int]]) -> List[List[int]]:
-
         scores = defaultdict(list)
 
-        for item in items:
-            scores[item[0]].append(item[1])          
+        # Process scores while maintaining only the top 5 using a min-heap
+        for student, score in items:
+            heapq.heappush(scores[student], score)  # Add the score
+            if len(scores[student]) > 5:  # If more than 5 scores, remove the smallest
+                heapq.heappop(scores[student])
 
-        for student, score in scores.items():
-            score.sort(reverse=True)
-            scores[student] = score[:5]
-        
+        # Generate result sorted by student ID
         result = []
-        for student, score in scores.items():
-            avg = sum(score) // 5
+        for student in sorted(scores):  # Ensure output is sorted by student ID
+            avg = sum(scores[student]) // 5  # Compute average of top 5 scores
             result.append([student, avg])
-        
-        result.sort(key = lambda x: x[0])
+
         return result
-        
