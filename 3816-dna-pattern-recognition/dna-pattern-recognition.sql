@@ -7,7 +7,7 @@ select
         else 0
     end as has_stop,
     case when dna_sequence like '%ATAT%' then 1 else 0 end as has_atat,
-    case when dna_sequence like '%ggg%' then 1 else 0 end as has_ggg
+    case when dna_sequence like '%GGG%' then 1 else 0 end as has_ggg
 from
     Samples
 order by
