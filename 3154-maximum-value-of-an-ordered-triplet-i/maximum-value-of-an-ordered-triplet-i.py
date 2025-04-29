@@ -1,13 +1,13 @@
 class Solution:
     def maximumTripletValue(self, nums: List[int]) -> int:
 
-        res = 0
+        i, res = 0, 0
 
-        for i in range(len(nums)):
-            for j in range(i+1, len(nums)):
-                for k in range(j+1, len(nums)):
-                    curr = max((nums[i] - nums[j]) * nums[k], 0)
-                    res = max(curr, res)
+        for j in range(i+1, len(nums)):
+            for k in range(j+1, len(nums)):
+                if nums[j] > nums[i]:
+                    i = j
+                res = max(res, (nums[i] - nums[j]) * nums[k])
 
         return res
         
