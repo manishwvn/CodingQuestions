@@ -10,24 +10,23 @@ class Solution:
             return sum_
 
         hm = {}
-        max_size = 0
+        max_val = 0
         for i in range(1,n+1):
             key = digit_sum(i)
 
             if key in hm:
-                hm[key].append(i)
+                hm[key] += 1
             else:
-                hm[key] = [i]
+                hm[key] = 1
             
-            curr_size = len(hm[key])
-            max_size = max(curr_size, max_size)
+            max_val = max(max_val, hm[key])
         
+        print(max_val)
         res = 0
 
-        for k, v in hm.items():
-            if len(v) == max_size:
+        for val in hm.values():
+            if val == max_val:
                 res += 1
-        
+
         return res
-            
         
