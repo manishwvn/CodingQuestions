@@ -17,7 +17,6 @@ class Solution:
             head = head.next
 
         new_head = ListNode()
-        print(new_head)
         curr = new_head
 
         for k, v in hm.items():
