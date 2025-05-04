@@ -6,7 +6,7 @@
 class Solution:
     def gameResult(self, head: Optional[ListNode]) -> str:
         
-        evens, odds, i = 0, 0, 0
+        evens, odds = 0, 0
 
         curr = head
 
