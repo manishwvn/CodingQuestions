@@ -1,17 +1,15 @@
 class Solution:
     def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:
-        freq = {}
+        freq = [0] * 100
         count = 0
 
         for a, b in dominoes:
-            
-            key = (a, b) if a <= b else (b, a)
-
-            if key in freq:
-                count += freq[key]
-                freq[key] += 1
+            if a <= b:
+                code = 10 * a + b
             else:
-                freq[key] = 1
-            
+                code = 10 * b + a 
+
+            count += freq[code]
+            freq[code] += 1
 
         return count
