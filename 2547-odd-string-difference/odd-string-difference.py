@@ -1,21 +1,18 @@
 class Solution:
     def oddString(self, words: List[str]) -> str:
-        
         diffs = {}
-        for i in range(len(words)):
-            n = len(words[i])
+
+        for i, word in enumerate(words):
             diff = []
-            for j in range(n-1):
-                diff.append(ord(words[i][j+1]) - ord(words[i][j]))
-            
-            key = tuple(diff)
-            if key in diffs:
-                diffs[key][0] += 1
+            for j in range(len(word) - 1):
+                diff.append(ord(word[j+1]) - ord(word[j]))
+            diff = tuple(diff)
+
+            if diff in diffs:
+                diffs[diff][0] += 1
             else:
-                diffs[key] = [1, i]
+                diffs[diff] = [1, i]
 
         for count, idx in diffs.values():
             if count == 1:
                 return words[idx]
-
-        
