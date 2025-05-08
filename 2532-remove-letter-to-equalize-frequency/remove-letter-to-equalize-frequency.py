@@ -1,21 +1,24 @@
 class Solution:
     def equalFrequency(self, word: str) -> bool:
+        freq = [0] * 26
 
-        charset = Counter(word)
-        keyset = set(charset.keys())
+        # Count frequencies
+        for ch in word:
+            freq[ord(ch) - ord('a')] += 1
 
-        for char in keyset:
-            charset[char] -= 1
+        # Try removing one occurrence of each character
+        for i in range(26):
+            if freq[i] == 0:
+                continue
 
-            if charset[char] == 0:
-                del charset[char]
+            freq[i] -= 1
 
-            if len(set(charset.values())) == 1:
+            # Collect non-zero frequencies into a set
+            freq_set = set(f for f in freq if f > 0)
+
+            if len(freq_set) == 1:
                 return True
 
-            if char in charset:
-                charset[char] += 1
-            else:
-                charset[char] = 1
+            freq[i] += 1  # Restore
 
         return False
