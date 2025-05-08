@@ -1,14 +1,20 @@
 class Solution:
     def equalFrequency(self, word: str) -> bool:
 
-        for i in range(len(word)):
-            charset = Counter(word)
-            charset[word[i]] -= 1
-            if charset[word[i]] == 0:
-                del charset[word[i]]
+        charset = Counter(word)
+
+        for char in list(charset.keys()):
+            charset[char] -= 1
+
+            if charset[char] == 0:
+                del charset[char]
 
             if len(set(charset.values())) == 1:
                 return True
 
+            if char in charset:
+                charset[char] += 1
+            else:
+                charset[char] = 1
+
         return False
-        
