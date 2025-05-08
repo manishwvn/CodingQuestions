@@ -2,8 +2,9 @@ class Solution:
     def equalFrequency(self, word: str) -> bool:
 
         charset = Counter(word)
+        keyset = set(charset.keys())
 
-        for char in list(charset.keys()):
+        for char in keyset:
             charset[char] -= 1
 
             if charset[char] == 0:
