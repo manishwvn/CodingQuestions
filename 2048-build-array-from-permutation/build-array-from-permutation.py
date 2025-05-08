@@ -1,10 +1,11 @@
 class Solution:
     def buildArray(self, nums: List[int]) -> List[int]:
+        n = len(nums)
 
-        res = [None] * len(nums)
+        for i in range(n):
+            nums[i] += (nums[nums[i]] % n) * n
 
-        for i in range(len(res)):
-            res[i] = nums[nums[i]]
+        for i in range(n):
+            nums[i] //= n
 
-        return res
-        
+        return nums
