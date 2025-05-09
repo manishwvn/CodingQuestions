@@ -1,21 +1,16 @@
 class Solution:
     def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
-        
-        placed = [False] * len(baskets)
+        used = set()
 
         for i in range(len(fruits)):
             for j in range(len(baskets)):
+                if j in used:
+                    continue
                 if fruits[i] <= baskets[j]:
-                    if placed[j] == False:
-                        placed[j] = True
-                        break
-                    else:
-                        continue
+                    used.add(j)
+                    break
 
-        print(placed)
-        count = 0
-        for val in placed:
-            if val == False:
-                count += 1
+            if len(used) == len(baskets):
+                break
 
-        return count
+        return len(fruits) - len(used)
