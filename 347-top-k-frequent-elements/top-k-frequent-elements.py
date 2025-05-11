@@ -1,20 +1,22 @@
-from heapq import heappush, heappop
-
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # Step 1: Count frequencies
-        freq_map = {}
+        
+        #3rd approach Bucket sort/bucketing
+
+        counts = {}
         for num in nums:
-            freq_map[num] = freq_map.get(num, 0) + 1
+            if num in counts:
+                counts[num] += 1
+            else:
+                counts[num] = 1
 
-        # Step 2: Build a max heap using negative frequency
-        max_heap = []
-        for num, freq in freq_map.items():
-            heappush(max_heap, (-freq, num))  # negate freq to simulate max heap
+        buckets = [[] for i in range(len(nums)+1)]
+        for num, count in counts.items():
+            buckets[count].append(num)
 
-        # Step 3: Extract top k elements
         res = []
-        for _ in range(k):
-            res.append(heappop(max_heap)[1])
-
-        return res
+        for freq in range(len(nums), 0, -1):
+            for num in buckets[freq]:
+                res.append(num)
+                if len(res) == k:
+                    return res
