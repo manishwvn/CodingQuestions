@@ -16,5 +16,7 @@ class Solution:
 
         if left != -1:
             nums[left], nums[right] = nums[right], nums[left]
+        else:
+            return num
 
         return int(''.join(str(x) for x in nums))
