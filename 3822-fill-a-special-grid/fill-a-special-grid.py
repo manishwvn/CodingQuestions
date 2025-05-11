@@ -1,8 +1,7 @@
-from typing import List
 
 class Solution:
     def specialGrid(self, n: int) -> List[List[int]]:
-        size = 1 << n  # 2^n
+        size = 2 ** n  # 2^n
         grid = [[0] * size for _ in range(size)]
 
         def dfs(r: int, c: int, length: int, start: int) -> int:
