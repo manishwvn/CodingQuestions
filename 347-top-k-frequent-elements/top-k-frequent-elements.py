@@ -1,7 +1,7 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
 
-        #using sorting - TC = O(nlogn) - SC = O(n)
+        #2nd approach: using minheap
         #1. find counts
         counts = {}
         for num in nums:
@@ -9,19 +9,18 @@ class Solution:
                 counts[num] += 1
             else:
                 counts[num] = 1
-
-        #2. create array of [[count, num]] and sort it.
-        arr = []
-        for num, count in counts.items():
-            arr.append([count, num])
-
-        arr.sort()
-
-        #3.create res and pop k elements[1](i.e. num) from arr.
-        res = []
-        while k > 0:
-            res.append(arr.pop()[1])
-            k -= 1
         
-        return res
+        #2. create heap and append k counts
+        heap = []
+        for key, val in counts.items():
+            heappush(heap, (val, key))
+            if len(heap) > k:
+                heappop(heap)
 
+        #3.create res and append values of heap
+        res = []
+        while heap:
+            res.append(heappop(heap)[1])
+
+        return res
+        
