@@ -1,7 +1,7 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
 
-        #2nd approach: using minheap
+        #2nd approach: using minheap TC = O(nlogk) SC = O(n + k)
         #1. find counts
         counts = {}
         for num in nums:
