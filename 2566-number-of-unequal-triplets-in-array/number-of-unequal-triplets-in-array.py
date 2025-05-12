@@ -1,10 +1,15 @@
 class Solution:
     def unequalTriplets(self, nums: List[int]) -> int:
-        count = 0
-        for i in range(len(nums)-2):
-            for j in range(i+1, len(nums)-1):
-                for k in range(j+1, len(nums)):
-                    if nums[i] != nums[j] and nums[j] != nums[k] and nums[i] != nums[k]:
-                        count += 1
-        return count
+        freq = Counter(nums)
+        unique = list(freq.items())  # (val, count)
         
+        total = 0
+        left = 0
+        n = len(nums)
+
+        for _, count_mid in unique:
+            right = n - left - count_mid
+            total += left * count_mid * right
+            left += count_mid
+
+        return total
