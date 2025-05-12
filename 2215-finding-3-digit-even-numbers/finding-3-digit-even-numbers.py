@@ -1,17 +1,24 @@
+from typing import List
+
 class Solution:
     def findEvenNumbers(self, digits: List[int]) -> List[int]:
-        
-        nums = set()
+        digit_count = [0] * 10
+        for d in digits:
+            digit_count[d] += 1
 
-        for i in range(len(digits)):
-            for j in range(len(digits)):
-                for k in range(len(digits)):
+        result = []
 
-                    if i != j and j != k and k != i:
-                        a, b, c = digits[i], digits[j], digits[k]
-                        if a != 0 and c % 2 == 0:
-                            num = a * 100 + b * 10 + c
-                            nums.add(num)
+        for num in range(100, 1000, 2):  # even numbers only
+            temp = [0] * 10
+            a = num // 100
+            b = (num // 10) % 10
+            c = num % 10
+            temp[a] += 1
+            temp[b] += 1
+            temp[c] += 1
 
+            # check if num can be built from digits
+            if all(temp[d] <= digit_count[d] for d in range(10)):
+                result.append(num)
 
-        return sorted(list(nums))
+        return sorted(result)
