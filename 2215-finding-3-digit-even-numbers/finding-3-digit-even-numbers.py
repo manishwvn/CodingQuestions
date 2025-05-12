@@ -18,7 +18,13 @@ class Solution:
             temp[c] += 1
 
             # check if num can be built from digits
-            if all(temp[d] <= digit_count[d] for d in range(10)):
+            is_valid = True
+            for d in range(10):
+                if temp[d] > digit_count[d]:
+                    is_valid = False
+                    break
+
+            if is_valid:
                 result.append(num)
 
         return sorted(result)
