@@ -7,13 +7,25 @@ class Solution:
             else:
                 return -1
 
+        n = len(nums)
+        left_min = [float('inf')] * n
+        right_min = [float('inf')] * n
+
+        # Fill left_min
+        for i in range(1, n):
+            left_min[i] = min(left_min[i-1], nums[i-1])
+
+        # Fill right_min
+        for i in range(n-2, -1, -1):
+            right_min[i] = min(right_min[i+1], nums[i+1])
+
+        print(left_min)
+        print(right_min)
 
         min_sum = float('inf')
-        for i in range(len(nums)-2):
-            for j in range(i+1, len(nums) - 1):
-                for k in range(j+1, len(nums)):
-                    if nums[i] < nums[j] and nums[k] < nums[j]:
-                        curr_sum = nums[i] + nums[j] + nums[k]
-                        min_sum = min(curr_sum, min_sum)
+        for j in range(1, n-1):
+            if left_min[j] < nums[j] and right_min[j] < nums[j]:
+                curr_sum = left_min[j] + nums[j] + right_min[j]
+                min_sum = min(min_sum, curr_sum)
 
         return min_sum if min_sum != float('inf') else -1
