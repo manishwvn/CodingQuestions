@@ -8,8 +8,10 @@ class Solution:
                 for k in range(len(digits)):
 
                     if i != j and j != k and k != i:
-                        num = digits[i] * 100 + digits[j] * 10 + digits[k]
-                        if num >= 100 and num % 2 == 0:
+                        a, b, c = digits[i], digits[j], digits[k]
+                        if a != 0 and c % 2 == 0:
+                            num = a * 100 + b * 10 + c
                             nums.add(num)
+
 
         return sorted(list(nums))
