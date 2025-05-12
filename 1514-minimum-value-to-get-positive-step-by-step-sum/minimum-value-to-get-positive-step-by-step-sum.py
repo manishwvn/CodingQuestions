@@ -1,6 +1,9 @@
 class Solution:
     def minStartValue(self, nums: List[int]) -> int:
 
+        if len(nums) == 1:
+            return abs(nums[0]) + 1 if nums[0] < 1 else 1
+
         prefix_sum = 0
         min_val = float("inf")
         for num in nums:
