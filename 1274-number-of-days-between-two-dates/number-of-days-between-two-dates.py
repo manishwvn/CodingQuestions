@@ -1,43 +1,35 @@
 class Solution:
     def daysBetweenDates(self, date1: str, date2: str) -> int:
         
-        def count(year,month,day):
-            n=0
-            for i in range(0,year):
-                if leap(i):
-                    n+=366
-                else:
-                    n+=365
-            n+=day
-            if leap(year):
-                for i in range(0,month-1):
-                    n+=monthdays2[i]
-            else:
-                for i in range(0,month-1):
-                    n+=monthdays1[i]       
-            return n
-        def leap(year):
-            if (year%4)==0:
-                if (year%100==0):
-                    if (year%400==0):
-                        return True
-                    else:
-                        return False
-                else:
-                    return True
-            else:
-                return False
+        def is_leap(year):
+            return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
 
-        monthdays1 = [31, 28, 31, 30, 31, 30,  
-                        31, 31, 30, 31, 30, 31 ]
-        monthdays2= [31, 29, 31, 30, 31, 30,  
-                        31, 31, 30, 31, 30, 31 ]
-        dat1=date1.split('-')
-        dat2=date2.split('-')
-        year1,month1,day1=dat1[:]
-        year2,month2,day2=dat2[:]
-        y1=count(int(year1),int(month1),int(day1))
-        y2=count(int(year2),int(month2),int(day2))
-        return abs(y2-y1)
-            
-            
+        def days_in_month(month, year):
+            if month == 2:
+                return 29 if is_leap(year) else 28
+            elif month in [1, 3, 5, 7, 8, 10, 12]:
+                return 31
+            else:
+                return 30
+
+        def count_total_days(year, month, day):
+            days = 0
+            # Add full years
+            for y in range(0, year):
+                days += 366 if is_leap(y) else 365
+            # Add full months in current year
+            for m in range(1, month):
+                days += days_in_month(m, year)
+            # Add days in current month
+            days += day
+            return days
+
+        # Parse input
+        y1, m1, d1 = map(int, date1.split('-'))
+        y2, m2, d2 = map(int, date2.split('-'))
+
+        # Get total days since year 0
+        total1 = count_total_days(y1, m1, d1)
+        total2 = count_total_days(y2, m2, d2)
+
+        return abs(total1 - total2)
