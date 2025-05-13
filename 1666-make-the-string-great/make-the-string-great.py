@@ -1,7 +1,7 @@
 class Solution:
     def makeGood(self, s: str) -> str:
 
-        if len(s) == 1: return s
+        if len(s) <= 1: return s
 
         stack = []
         for i in range(len(s)):
