@@ -14,7 +14,7 @@ class TwoSum:
     def find(self, value: int) -> bool:
         for num in self.hm:
             if value - num == num:
-                if self.hm[num] >= 2:
+                if self.hm[num] > 1:
                     return True
             else:
                 if value - num in self.hm:
