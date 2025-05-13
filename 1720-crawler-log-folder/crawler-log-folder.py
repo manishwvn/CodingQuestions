@@ -12,4 +12,4 @@ class Solution:
             else:
                 count += 1
 
-        return count if count > -1 else 0
+        return count
