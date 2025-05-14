@@ -1,9 +1,7 @@
 class Solution:
     def isMajorityElement(self, nums: List[int], target: int) -> bool:
 
-        def find_left(nums, target):
-            l, r = 0, len(nums) - 1
-
+        def find_left(l, r, nums, target):
             while l <= r:
                 mid = (l + r) // 2
 
@@ -14,9 +12,7 @@ class Solution:
 
             return r
 
-        def find_right(nums, target):
-            l, r = 0, len(nums) - 1
-
+        def find_right(l, r, nums, target):
             while l <=r :
                 mid = (l + r) // 2
 
@@ -27,11 +23,11 @@ class Solution:
                     r = mid - 1
             return l
 
-        print(find_left(nums, target))
-        print(find_right(nums, target))
+        print(find_left(0, len(nums) -1, nums, target))
+        print(find_right(0, len(nums) -1, nums, target))
 
-        left = find_left(nums, target) + 1
-        right = find_right(nums, target)
+        left = find_left(0, len(nums) -1, nums, target) + 1
+        right = find_right(0, len(nums) -1, nums, target)
 
         if right - left > len(nums) // 2:
             return True
