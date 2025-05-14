@@ -1,25 +1,14 @@
 class Solution:
     def findRelativeRanks(self, score: List[int]) -> List[str]:
-
-        heap = []
-        ranks = [None] * len(score)
-
-        for i, s in enumerate(score):
-            heappush(heap, [-s, i])
-
-        place = 1
-
-        while heap:
-            s, idx = heappop(heap)
-            if place == 1:
-                ranks[idx] = "Gold Medal"
-            elif place == 2:
-                ranks[idx] = "Silver Medal"
-            elif place == 3:
-                ranks[idx] = "Bronze Medal"
+        sorted_score = sorted(score, reverse=True)
+        rank_map = {}
+        for i, s in enumerate(sorted_score):
+            if i == 0:
+                rank_map[s] = "Gold Medal"
+            elif i == 1:
+                rank_map[s] = "Silver Medal"
+            elif i == 2:
+                rank_map[s] = "Bronze Medal"
             else:
-                ranks[idx] = str(place)
-            place += 1
-
-        return ranks
-        
+                rank_map[s] = str(i + 1)
+        return [rank_map[s] for s in score]
