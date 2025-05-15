@@ -8,10 +8,8 @@ class Solution:
 
         char_set = set()
         l = 0
-        r = 1
-        char_set.add(s[l])
-        max_len = 1
-        for r in range(1, len(s)):
+        max_len = 0
+        for r in range(len(s)):
 
             #if char is present in set
             if s[r] in char_set:
