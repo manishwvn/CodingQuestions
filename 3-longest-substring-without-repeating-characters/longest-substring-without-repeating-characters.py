@@ -11,7 +11,7 @@ class Solution:
         r = 1
         char_set.add(s[l])
         max_len = 1
-        while r < len(s):
+        for r in range(1, len(s)):
 
             #if char is present in set
             if s[r] in char_set:
@@ -21,6 +21,5 @@ class Solution:
             #else char is not present
             char_set.add(s[r])
             max_len = max(max_len, len(char_set))
-            r += 1
         
         return max_len
