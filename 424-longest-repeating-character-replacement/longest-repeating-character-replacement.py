@@ -5,10 +5,11 @@ class Solution:
         max_len = 0
         l = 0
         counts = [0] * 26
+        max_freq = 0
         for r in range(len(s)):
             counts[ord(s[r]) - ord('A')] += 1
             # freq = Counter(substr)
-            max_freq = max(counts)
+            max_freq = max(max_freq, counts[ord(s[r]) - ord('A')])
 
             # change = len(substr) - max_freq
             change = r - l + 1 - max_freq
