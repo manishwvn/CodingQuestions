@@ -20,6 +20,6 @@ class Solution:
                     l += 1
             #else char is not present
             char_set.add(s[r])
-            max_len = max(max_len, len(char_set))
+            max_len = max(max_len, r - l + 1)
         
         return max_len
