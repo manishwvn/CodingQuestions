@@ -14,7 +14,7 @@ class Solution:
             max_freq = max(max_freq, counts[s[r]])
 
             # window_size - max_freq = number of changes needed
-            if (r - l + 1) - max_freq > k:
+            while (r - l + 1) - max_freq > k:
                 counts[s[l]] -= 1
                 l += 1
 
