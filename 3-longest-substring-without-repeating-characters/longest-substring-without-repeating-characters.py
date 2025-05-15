@@ -15,14 +15,12 @@ class Solution:
 
             #if char is present in set
             if s[r] in char_set:
-                char_set.remove(s[l])
-                l += 1
-
+                while s[r] in char_set:
+                    char_set.remove(s[l])
+                    l += 1
             #else char is not present
-            else:
-                char_set.add(s[r])
-                r += 1
-
+            char_set.add(s[r])
             max_len = max(max_len, len(char_set))
+            r += 1
         
         return max_len
