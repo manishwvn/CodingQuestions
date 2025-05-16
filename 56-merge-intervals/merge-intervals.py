@@ -7,18 +7,15 @@ class Solution:
         
         
         intervals.sort()
-        result = [intervals[0]]
+        result = []
         
-        for i in range(1, len(intervals)):
+        for interval in intervals:
+            if not result or result[-1][1] < interval[0]:
+                result.append(interval)
             
-            last = result[-1][1]
-            
-            if intervals[i][0] <= last:
-                result[-1][1] = max(last, intervals[i][1]) 
-                
             else:
-                result.append(intervals[i])
-                
+                result[-1] = [result[-1][0], max(result[-1][1], interval[1])]
+
         return result
         
         
