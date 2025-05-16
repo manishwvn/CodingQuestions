@@ -12,7 +12,7 @@ class Solution:
         
         #sliding window
 
-        res = float('inf')
+        res = len(s)
         l = 0 
         for r in range(len(s)):
             total[ord(s[r]) - ord('a')] -= 1
