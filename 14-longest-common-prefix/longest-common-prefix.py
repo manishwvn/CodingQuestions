@@ -3,22 +3,19 @@ class Solution:
         if not strs:  # Handle empty input
             return ""
 
-        # Find the shortest string without using min(..., key=len)
+        if len(strs) == 1: return strs[0]
+
         min_len = float('inf')
-        min_str = ""
         for s in strs:
-            if len(s) < min_len:
-                min_len = len(s)
-                min_str = s
+            min_len = min(min_len, len(s))
 
-        if not min_str: #handle empty string in the list
-            return ""
+        i = 0
 
-        result = ""
-        for j in range(len(min_str)):
-            for i in range(len(strs)):
-                if j >= len(strs[i]) or min_str[j] != strs[i][j]:
-                    return result  # Important: Return immediately if mismatch
-            result += min_str[j] #only add to result if all match
+        while i < min_len:
+            for s in strs:
+                if s[i] != strs[0][i]:
+                    return s[:i]
 
-        return result
+            i += 1
+
+        return strs[0][:i]
