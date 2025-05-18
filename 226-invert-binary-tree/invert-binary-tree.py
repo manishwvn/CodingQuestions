@@ -10,12 +10,16 @@ class Solution:
         if not root:
             return None
 
-        left = self.invertTree(root.left)
-        right = self.invertTree(root.right)
-        left, right = right, left
+        stack = [root]
 
-        root.left = left
-        root.right = right
+        while stack:
+            node = stack.pop()
+
+            node.left, node.right = node.right, node.left
+
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
 
         return root
-        
