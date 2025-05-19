@@ -7,22 +7,20 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
 
-        def inorder(root):
-            nonlocal prev
-
-            if not root:
-                return True
-            
-            if not inorder(root.left):
-                return False
-            
-            if root.val <= prev:
-                return False
-
-            prev = root.val
-            return inorder(root.right)
-            
-
-        prev = -float("inf")
-        return inorder(root)
+        stack, prev = [], None
+        curr = root
         
+        while stack or curr:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            
+            curr = stack.pop()
+            if prev is not None and curr.val <= prev:
+                return False
+            prev = curr.val
+            curr = curr.right
+
+        return True
+                
+
