@@ -11,16 +11,24 @@ class Solution:
             if not root:
                 return
             dfs(root.left, node_list)
-            node_list.add(root.val)
+            node_list.append(root.val)
             dfs(root.right, node_list)
         
-        node_list1, node_list2 = set(), set()
+        node_list1, node_list2 = [], []
         dfs(root1, node_list1)
         dfs(root2, node_list2)
 
-        for num in node_list1:
-            if target - num in node_list2:
+        l, r = 0, len(node_list2) - 1
+
+        while l < len(node_list1) and r > -1:
+            if node_list1[l] + node_list2[r] == target:
                 return True
+
+            elif node_list1[l] + node_list2[r] < target:
+                l += 1
+            
+            else:
+                r -= 1
         return False
 
-
+    
