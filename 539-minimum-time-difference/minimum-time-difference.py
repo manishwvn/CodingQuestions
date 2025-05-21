@@ -7,10 +7,10 @@ class Solution:
             timePoints[i] = total_mins
 
         timePoints.sort()
-        min_diff = float('inf')
+        min_diff = 1440 - timePoints[-1] + timePoints[0]
         for i in range(1, len(timePoints)):
             min_diff = min(min_diff, timePoints[i] - timePoints[i - 1])
  
-        min_diff = min(min_diff, 1440 - timePoints[-1] + timePoints[0])
+        # min_diff = min(min_diff, 1440 - timePoints[-1] + timePoints[0])
 
         return min_diff
