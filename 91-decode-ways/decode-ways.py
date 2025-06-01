@@ -11,11 +11,14 @@ class Solution:
             if i in memo:
                 return memo[i]
 
+            # first digit
             count = decode(s, i + 1)
 
+            #2 digits
             if i + 1 < len(s) and 10 <= int(s[i:i+2]) <= 26:
                 count += decode(s, i+2)
             
+            #store the counts in memo for index i
             memo[i] = count
             
             return count
