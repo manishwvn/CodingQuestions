@@ -1,17 +1,16 @@
-class Solution(object):
-    def numberOfSpecialChars(self, word):
-        small = [0] * 26
-        capital = [0] * 26
-        count = 0
-        
+class Solution:
+    def numberOfSpecialChars(self, word: str) -> int:
+        lowers, uppers, special = set(), set(), set()
+
         for char in word:
-            if char >= 'a' and char <= 'z':
-                small[ord(char) - ord('a')] = 1
+            if 'a' <= char <= 'z':
+                lowers.add(char)
+                if char.upper() in uppers:
+                    special.add(char)
+
             else:
-                capital[ord(char) - ord('A')] = 1
-        
-        for i in range(26):
-            if small[i] == 1 and capital[i] == 1:
-                count += 1
-        
-        return count
+                uppers.add(char)
+                if char.lower() in lowers:
+                    special.add(char.lower())
+
+        return len(special)
