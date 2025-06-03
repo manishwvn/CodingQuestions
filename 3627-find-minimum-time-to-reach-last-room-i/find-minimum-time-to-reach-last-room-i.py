@@ -25,4 +25,4 @@ class Solution:
                     new_time = wait_time + 1
                     heappush(queue, (new_time, nr, nc))
 
-        return -1
+        return visited[-1][-1]
