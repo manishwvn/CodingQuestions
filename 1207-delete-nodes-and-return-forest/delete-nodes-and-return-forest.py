@@ -7,36 +7,28 @@
 class Solution:
     def delNodes(self, root: Optional[TreeNode], to_delete: List[int]) -> List[TreeNode]:
 
-        if not root:
-            return []
-
         delete_set = set(to_delete)
         forest = []
 
-        queue = deque([root])
+        def process_node(node):
+            if not node: return None
 
-        while queue:
-            curr = queue.popleft()
+            node.left = process_node(node.left)
+            node.right = process_node(node.right)
 
-            if curr.left:
-                queue.append(curr.left)
+            if node.val in delete_set:
+                if node.left:
+                    forest.append(node.left)
+                if node.right:
+                    forest.append(node.right)
 
-                if curr.left.val in delete_set:
-                    curr.left = None
+                return None
 
-            if curr.right:
-                queue.append(curr.right)
-                if curr.right.val in delete_set:
-                    curr.right = None
+            return node
 
-            if curr.val in delete_set:
-                if curr.left:
-                    forest.append(curr.left)
-                if curr.right:
-                    forest.append(curr.right)
+        root = process_node(root)
 
-        if root.val not in delete_set:
+        if root:
             forest.append(root)
-
         return forest
         
