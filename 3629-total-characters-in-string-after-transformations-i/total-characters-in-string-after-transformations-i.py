@@ -11,8 +11,8 @@ class Solution:
 
             for i in range(26):
                 if i == 25:
-                    new_freq[0] += freq[25]
-                    new_freq[1] += freq[25]
+                    new_freq[0] += freq[25] % mod
+                    new_freq[1] += freq[25] % mod
                 else:
                     new_freq[i+1] += freq[i]
             freq = new_freq
