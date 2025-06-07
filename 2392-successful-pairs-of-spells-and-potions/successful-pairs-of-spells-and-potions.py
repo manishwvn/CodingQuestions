@@ -6,16 +6,16 @@ class Solution:
 
         for spell in spells:
             l, r = 0, len(potions) - 1
-            idx = len(potions)
+            # idx = len(potions)
             while l <= r:
                 mid = (l + r) // 2
                 if potions[mid] * spell >= success:
                     r = mid - 1
-                    idx = mid
+                    # idx = mid
                 else:
                     l = mid + 1
             
-            result.append(len(potions) - idx)
+            result.append(len(potions) - l)
 
         return result
         
