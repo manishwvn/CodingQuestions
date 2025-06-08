@@ -7,7 +7,7 @@
 class Solution:
     def findDuplicateSubtrees(self, root: Optional[TreeNode]) -> List[Optional[TreeNode]]:
 
-        subtrees = defaultdict(list)
+        subtrees = defaultdict(int)
         result = []
 
         def preorder(node):
@@ -15,11 +15,11 @@ class Solution:
                 return "null"
 
             serialized = ",".join([str(node.val), preorder(node.left), preorder(node.right)])
+            
+            subtrees[serialized] += 1
 
-            if len(subtrees[serialized]) == 1:
+            if subtrees[serialized] == 2:
                 result.append(node)
-
-            subtrees[serialized].append(node)
             return serialized
                 
         preorder(root)
