@@ -5,7 +5,7 @@ class Solution:
         result = []
 
         def generate(curr_string, left_count, right_count):
-            if len(curr_string) == 2 * n and left_count == right_count:
+            if len(curr_string) == 2 * n:
                 result.append("".join(curr_string))
                 return
 
