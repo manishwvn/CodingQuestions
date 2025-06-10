@@ -4,13 +4,15 @@ class Solution:
         pairs = [[position[i], speed[i]] for i in range(len(position))]
         pairs.sort(reverse = True)
 
-        stack = []
+        res = prev = 0
 
         for pair in pairs:
             p, s = pair
-            stack.append((target - p) / s)
+            time = (target - p) / s
 
-            if len(stack) >= 2 and stack[-1] <= stack[-2]:
-                stack.pop()
+            if prev < time:
+                res += 1
+                prev = time
 
-        return len(stack)
+        return res
+
