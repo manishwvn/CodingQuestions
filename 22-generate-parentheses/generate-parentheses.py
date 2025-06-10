@@ -28,13 +28,18 @@ class Solution:
                 
                 return
 
-            curr_string.append('(')
-            generate(curr_string)
-            curr_string.pop()
+            # curr_string.append('(')
+            # generate(curr_string)
+            # curr_string.pop()
 
-            curr_string.append(')')
-            generate(curr_string)
-            curr_string.pop()
+            # curr_string.append(')')
+            # generate(curr_string)
+            # curr_string.pop()
+
+            for char in ['(', ')']:
+                curr_string.append(char)
+                generate(curr_string)
+                curr_string.pop()
             
         curr_string = []
         generate(curr_string)
