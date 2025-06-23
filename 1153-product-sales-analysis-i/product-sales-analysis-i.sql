@@ -3,8 +3,8 @@ select
     s.year,
     s.price
 from
-    product p
-right join
     sales s
+ join
+    product p
 on
     p.product_id = s.product_id;
