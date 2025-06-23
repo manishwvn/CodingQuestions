@@ -16,9 +16,7 @@ with cte as (
     on
         s.product_id = p.product_id
     group by
-        season, p.category
-    order by
-        season),
+        season, p.category),
 
 cte2 as (
     select
@@ -39,3 +37,5 @@ from
     cte2
 where
     rnk = 1
+order by
+    season;
