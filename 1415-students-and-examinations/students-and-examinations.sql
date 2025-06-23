@@ -6,7 +6,7 @@ select
             count(e.student_id) as attended_exams
     from
         students s
-    cross join
+    join
         subjects sub
     
     left join
