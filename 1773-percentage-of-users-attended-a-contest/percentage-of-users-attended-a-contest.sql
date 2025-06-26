@@ -1,13 +1,12 @@
 select
     r.contest_id,
-    round((count(distinct r.user_id)*100/(select count(*) from Users)),2) as percentage
+    round(count(distinct r.user_id) / count(distinct u.user_id) * 100, 2)
+    as percentage
 from
-    register r 
-join
-    users u 
-on
-    r.user_id = u.user_id
+    users u
+cross join
+    register r
 group by
     r.contest_id
 order by
-    2 desc, 1 asc;
+    percentage desc, r.contest_id
