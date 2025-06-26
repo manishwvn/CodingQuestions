@@ -4,5 +4,5 @@ FROM
     CINEMA
 WHERE
     ID % 2 <> 0
-AND UPPER(DESCRIPTION) <> 'BORING'
+AND lower(description) not like '%boring%'
 ORDER BY RATING DESC;
