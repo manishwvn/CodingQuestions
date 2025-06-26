@@ -1,17 +1,13 @@
-SELECT
-    P.PRODUCT_ID AS product_id,
-    CASE
-        WHEN SUM(U.UNITS) = 0 OR SUM(U.UNITS) IS NULL THEN 0.00
-        ELSE ROUND(SUM(P.PRICE * U.UNITS) / SUM(U.UNITS), 2) 
-    END AS average_price
-FROM
-    PRICES P
-LEFT JOIN
-    UNITSSOLD U
-ON
-    P.PRODUCT_ID = U.PRODUCT_ID
-AND
-    U.PURCHASE_DATE BETWEEN P.START_DATE AND P.END_DATE
-GROUP BY
-    P.PRODUCT_ID;
-    
+select
+    p.product_id,
+    coalesce(round(sum(p.price * u.units) / sum(u.units), 2), 0) as average_price
+from 
+    prices p 
+left join
+    unitssold u 
+on
+    p.product_id = u.product_id
+    and
+    u.purchase_date between p.start_date and p.end_date
+group by
+    p.product_id;
