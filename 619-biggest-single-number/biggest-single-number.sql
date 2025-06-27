@@ -8,7 +8,7 @@
 -- having count(num) = 1) as t;
 with singlenums as (
     select
-        num, count(*) as count
+        num
     from
         mynumbers
     group by
