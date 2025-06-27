@@ -25,8 +25,6 @@
 	 
 -- 5. Everything else, like @leetcode.com refers to exact match.
 
-
-SELECT user_id, name, mail
+SELECT * 
 FROM Users
--- Note that we also escaped the `@` character, as it has a special meaning in some regex flavors
-WHERE mail is not null and REGEXP_LIKE (mail,'^[a-zA-Z][a-zA-Z0-9_.-]*\\@leetcode\\.com$');
+WHERE REGEXP_LIKE(mail, '^[a-zA-Z][a-zA-Z0-9._-]*@leetcode\\.com$', 'c');
