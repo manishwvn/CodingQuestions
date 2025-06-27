@@ -1,4 +1,4 @@
-(select
+select results from (select
     u.name as results
 from
     users u
@@ -11,9 +11,9 @@ group by
 order by
     count(distinct mr.movie_id) desc, u.name asc
 limit
-    1)
+    1) as t1
 union all
-(select
+select results from (select
     m.title as results
 from
     movies m 
@@ -27,4 +27,4 @@ group by
     m.title
 order by
     avg(mr.rating) desc, m.title asc
-limit 1)
+limit 1) as t2;
