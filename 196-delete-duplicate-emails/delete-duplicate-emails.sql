@@ -1,4 +1,9 @@
-
-with cte as (select *, row_number() over(partition by email order by id) as r from person)
-
-delete from person where id not in (select id from cte where r=1);
+DELETE FROM Person
+WHERE id NOT IN (
+    SELECT id -- Select the IDs that should be KEPT
+    FROM (
+        SELECT MIN(id) AS id -- This identifies the min ID for each email group
+        FROM Person
+        GROUP BY email
+    ) AS temp_min_ids -- Crucial: This derived table bypasses the MySQL restriction
+);
