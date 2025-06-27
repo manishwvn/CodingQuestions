@@ -1,32 +1,22 @@
--- select
---     employee_id,
---     department_id
--- from
---     employee
--- where primary_flag = 'Y'
--- or employee_id in (
--- select
---     employee_id
--- from
---     employee
--- group by
---     employee_id
--- having count(employee_id) = 1);
+with cte as (
+    select
+        employee_id,
+        count(department_id) as num_dept
+    from
+        employee 
+    group by
+        employee_id
+)
 
 select
-    employee_id,
-    department_id
+    e.employee_id,
+    e.department_id
 from
-    employee
-group by
-    employee_id
-having
-    count(employee_id) = 1
-union
-select
-    employee_id,
-    department_id
-from
-    employee
+    employee e
+join
+    cte c 
+on
+    e.employee_id = c.employee_id
 where
-    primary_flag = 'Y';
+    c.num_dept = 1
+    or (c.num_dept > 1 and e.primary_flag = 'Y');
