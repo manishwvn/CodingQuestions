@@ -3,15 +3,23 @@
     -- and id = max then keep as it is
     -- else:
     --     id + 1
-with cte as (select
+
+with cte2 as (
+    select
+        *,
+        max(id) over() as max_id
+    from
+        seat
+),
+cte as (select
     *,
     case
         when id % 2 = 0 then id - 1
-        when id % 2 = 1 and id = (select max(id) from seat) then id
+        when id % 2 = 1 and id = max_id then id
         else id + 1
     end as new_id
 from
-    seat)
+    cte2)
 
 select
     new_id as id,
