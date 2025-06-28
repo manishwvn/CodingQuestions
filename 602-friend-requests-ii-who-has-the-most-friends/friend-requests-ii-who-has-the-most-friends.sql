@@ -10,20 +10,15 @@ with id_comb as(
         requester_id
     from
         requestaccepted
-),
-cte2 as (
+)
+
 select
     id,
-    count(friend_id) as num,
-    dense_rank() over(order by count(friend_id) desc) as rnk
+    count(distinct friend_id) as num
 from
     id_comb
 group by
-    id)
-
-select
-    id, num
-from
-    cte2
-where
-    rnk = 1;
+    id
+order by
+    num desc
+limit 1;
