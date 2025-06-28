@@ -1,15 +1,24 @@
 with cte as (select
-    *,
-    dense_rank() over(partition by student_id order by grade desc, course_id) as rnk
+    student_id, 
+    max(grade) as max_grade
 from
-    enrollments)
+    Enrollments
+group by
+    1)
 
 select
-    student_id,
-    course_id,
-    grade
+    e.student_id,
+    min(e.course_id) as course_id,
+    e.grade
 from
-    cte
-where
-    rnk = 1
-order by 1;
+    Enrollments e 
+join
+    cte c 
+on
+    e.student_id = c.student_id
+    and
+    e.grade = c.max_grade
+group by
+    e.student_id, e.grade
+order by
+    e.student_id
