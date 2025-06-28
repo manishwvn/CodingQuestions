@@ -1,10 +1,8 @@
 select
-    c.name as Customers
+    name as `Customers`
 from
-    Customers c
-left join
-    orders o
-on
-    c.id = o.customerid
+    customers
 where
-    o.id is null;
+    id not in (
+        select  distinct customerId from orders
+    );
