@@ -1,8 +1,13 @@
-WITH EmployeeCount AS (
-    SELECT project_id, COUNT(employee_id) AS employee_count
-    FROM Project
-    GROUP BY project_id
-)
-SELECT project_id
-FROM EmployeeCount
-WHERE employee_count = (SELECT MAX(employee_count) FROM EmployeeCount);
+select
+    project_id
+from
+    (
+select
+    project_id,
+    dense_rank() over(order by count(employee_id) desc) as rnk
+from
+    project p
+group by
+    project_id) t
+where
+    t.rnk = 1;
