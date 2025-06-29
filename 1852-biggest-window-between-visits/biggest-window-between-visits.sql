@@ -7,10 +7,12 @@ from
 cte2 as(
 select
     user_id,
-    case
-        when next_date is null then datediff(date('2021-01-01'), visit_date)
-        else datediff(next_date, visit_date)
-    end as windows
+    -- case
+    --     when next_date is null then datediff(date('2021-01-01'), visit_date)
+    --     else datediff(next_date, visit_date)
+    -- end as windows
+
+    datediff(coalesce(next_date, date('2021-01-01')), visit_date) as windows
 from
     cte)
 
