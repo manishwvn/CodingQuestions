@@ -1,23 +1,16 @@
-SELECT
-    C.NAME AS country
-
-FROM
-    COUNTRY C
-JOIN
-    PERSON P
-ON
-    SUBSTR(P.PHONE_NUMBER,1,3) =  C.COUNTRY_CODE
-
-JOIN
-    CALLS S
-
-ON
-    P.ID IN (S.CALLER_ID, S.CALLEE_ID)
-
-GROUP BY
-    C.COUNTRY_CODE
-
-HAVING
-    AVG(S.DURATION) > (SELECT AVG(DURATION) FROM CALLS);
-    
-    
+select
+    c.name as country
+from
+    country c 
+join
+    person p 
+on
+    c.country_code = substr(p.phone_number, 1, 3)
+join
+    calls c1 
+on
+    p.id = c1.caller_id or p.id = c1.callee_id
+group by 
+    country
+having
+    avg(c1.duration) > (select avg(duration) from calls)
