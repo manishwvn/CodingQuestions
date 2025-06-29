@@ -1,16 +1,24 @@
+with cte as (
+    select
+        *
+    from
+        friendship
+    where
+        user1_id = 1
+        or
+        user2_id = 1
+)
+
 select
-    distinct page_id as recommended_page
+    distinct l.page_id as recommended_page
 from
-    friendship f
+    likes l 
 join
-    likes l
+    cte c 
 on
-    (l.user_id = f.user2_id
-    and
-    f.user1_id = 1)
+    l.user_id = c.user1_id
     or
-    (l.user_id = f.user1_id
-    and
-    f.user2_id = 1)
+    l.user_id = c.user2_id
 where
     l.page_id not in (select distinct page_id from likes where user_id = 1)
+    
