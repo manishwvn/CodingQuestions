@@ -11,7 +11,7 @@ join
 on
     o.product_id = p.product_id
 group by
-    o.customer_id, o.product_id)
+    o.customer_id, o.product_id, p.product_name)
 
 select
     customer_id,
