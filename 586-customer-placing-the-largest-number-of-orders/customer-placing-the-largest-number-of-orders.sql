@@ -1,14 +1,10 @@
-with cte as (select
-    customer_number,
-    dense_rank() over(order by count(*) desc) as rnk
+select
+    customer_number
+    -- count(customer_number) as counts
 from
     orders
 group by
-    customer_number)
-
-select
-    customer_number
-from
-    cte
-where
-    rnk = 1;
+    1
+order by
+    count(customer_number) desc
+limit 1;
