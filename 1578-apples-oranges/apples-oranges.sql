@@ -7,8 +7,6 @@ JOIN
     SALES B
 ON
     A.SALE_DATE = B.SALE_DATE
-    AND
-    A.FRUIT <> B.FRUIT
 WHERE
     A.FRUIT = 'apples' and B.FRUIT = 'oranges'
 ORDER BY
