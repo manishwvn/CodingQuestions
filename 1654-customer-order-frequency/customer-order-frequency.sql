@@ -1,28 +1,32 @@
-with cte as (SELECT
+with cte as (select
     o.customer_id,
     c.name,
-    month(o.order_date) as month,
-    sum(p.price * o.quantity) as total
-FROM
+    month(o.order_date) as `month`,
+    sum(o.quantity * p.price) as amount
+from
     orders o
-LEFT JOIN
-    customers c ON o.customer_id = c.customer_id
-LEFT JOIN
-    product p ON o.product_id = p.product_id
-WHERE
-    YEAR(o.order_date) = 2020
-    AND (MONTH(o.order_date) = 6 OR MONTH(o.order_date) = 7)
+join
+    product p 
+on
+    o.product_id = p.product_id
+join
+    customers c 
+on
+    o.customer_id = c.customer_id
+where
+    year(order_date) = 2020
+    and
+    (month(order_date) = 6 or month(order_date) = 7)
 group by
-    c.customer_id, month
+    o.customer_id, month
 having
-    sum(p.price * o.quantity) >= 100)
+    amount >= 100)
 
 select
-    customer_id,
-    name
+    customer_id, name
 from
     cte
 group by
     customer_id, name
 having
-    count(*) = 2;
+    count(*) = 2
