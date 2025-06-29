@@ -1,10 +1,11 @@
 select
     player_id, device_id
-from(
-    select
+from
+    (select
         *,
         dense_rank() over(partition by player_id order by event_date) as rnk
     from
-        activity) t
+        activity) as t
+
 where
-    t.rnk = 1;
+    t.rnk = 1
