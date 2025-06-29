@@ -1,18 +1,12 @@
-with cte as (select
-    *,
-    (seat_id) - row_number() over(order by seat_id) as diff
+select
+    distinct c1.seat_id
 from
-    cinema
+    cinema c1
+join
+    cinema c2
+on
+    abs(c1.seat_id - c2.seat_id) = 1
 where
-    free = 1),
-
-cte2 as (
-    select
-        seat_id,
-        count(diff) over(partition by diff) as cnt
-    from
-        cte
-
-)
-
-select seat_id from cte2 where cnt > 1 order by seat_id;
+    c1.free = 1 and c2.free = 1
+order by
+    c1.seat_id;
