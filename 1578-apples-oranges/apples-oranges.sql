@@ -7,7 +7,7 @@ JOIN
     SALES B
 ON
     A.SALE_DATE = B.SALE_DATE
-WHERE
+and
     A.FRUIT = 'apples' and B.FRUIT = 'oranges'
 ORDER BY
     A.SALE_DATE;
