@@ -1,16 +1,18 @@
 select
-    distinct page_id as recommended_page
+    distinct l.page_id as recommended_page
 from
-    friendship f
+    likes l 
 join
-    likes l
+    friendship f
 on
-    (l.user_id = f.user2_id
-    and
-    f.user1_id = 1)
+    (l.user_id = f.user1_id and f.user2_id = 1)
     or
-    (l.user_id = f.user1_id
+    (l.user_id = f.user2_id and f.user1_id = 1)
+left join
+    likes l1
+on
+    l1.page_id = l.page_id
     and
-    f.user2_id = 1)
+    l1.user_id = 1
 where
-    l.page_id not in (select distinct page_id from likes where user_id = 1)
+    l1.user_id is null
