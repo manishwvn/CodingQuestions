@@ -1,30 +1,42 @@
--- Step 1: Capture the original row order and create groups
-WITH OrderedCoffeeShop AS (
+-- Step 1: We must first create a stable, sequential row number.
+WITH recursive OrderedCoffeeShop AS (
     SELECT
         id,
         drink,
-        -- Create a sequential number to represent the original, stable row order
         ROW_NUMBER() OVER() AS rn
     FROM
         CoffeeShop
 ),
-GroupedDrinks AS (
+
+-- Step 2: Use a recursive CTE to carry the value forward row by row.
+RecursiveFill AS (
+    -- Anchor Member: Start with the very first row.
     SELECT
         id,
         drink,
-        rn,
-        -- Create a running count that only increments for non-NULL drinks.
-        -- IMPORTANT: This must be ordered by the original sequence (rn).
-        COUNT(drink) OVER (ORDER BY rn) AS drink_group
+        rn
     FROM
         OrderedCoffeeShop
+    WHERE
+        rn = 1
+
+    UNION ALL
+
+    -- Recursive Member: Join the next row and fill the NULL if needed.
+    SELECT
+        curr.id,
+        -- If the current drink is NULL, use the previous row's drink.
+        COALESCE(curr.drink, prev.drink) AS drink,
+        curr.rn
+    FROM
+        OrderedCoffeeShop curr
+    JOIN
+        RecursiveFill prev ON curr.rn = prev.rn + 1
 )
--- Step 2: Fill the NULLs by taking the first value from each group
 SELECT
     id,
-    -- For each row, find the first 'drink' value within its calculated 'drink_group'
-    FIRST_VALUE(drink) OVER (PARTITION BY drink_group ORDER BY rn) AS drink
+    drink
 FROM
-    GroupedDrinks
+    RecursiveFill
 ORDER BY
-    rn; -- The final output must be sorted by the original sequence
+    rn;
