@@ -10,21 +10,15 @@ with cte2 as (
         max(id) over() as max_id
     from
         seat
-),
-cte as (select
-    *,
+)
+select
     case
         when id % 2 = 0 then id - 1
         when id % 2 = 1 and id = max_id then id
         else id + 1
-    end as new_id
-from
-    cte2)
-
-select
-    new_id as id,
+    end as id,
     student
 from
-    cte
+    cte2
 order by
-    new_id;
+    1;
