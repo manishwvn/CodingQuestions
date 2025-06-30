@@ -1,39 +1,11 @@
-with shown as (
-    select
-        id,
-        question_id,
-        count(*) as num_shown
-    from
-        surveylog
-    where
-        action = 'show'
-    group by
-        id, question_id
-),
-
-answered as (
-    select
-        id, question_id, answer_id, count(*) as num_ans
-    from
-        surveylog
-    where
-        action = 'answer'
-    group by
-        id, question_id
-)
-
-
-select
-    s.question_id as survey_log
-from
-    shown s
-left join
-    answered a
-on
-    s.id = a.id
-    and
-    s.question_id = a.question_id
-order by
-    coalesce(a.num_ans, 0) / s.num_shown desc, s.question_id asc
-limit
-    1;
+SELECT
+    question_id AS survey_log
+FROM
+    surveylog
+GROUP BY
+    question_id
+ORDER BY
+    -- Calculate the answer rate directly using conditional aggregation
+    SUM(CASE WHEN action = 'answer' THEN 1 ELSE 0 END) / SUM(CASE WHEN action = 'show' THEN 1 ELSE 0 END) DESC,
+    question_id ASC
+LIMIT 1;
