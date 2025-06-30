@@ -27,5 +27,3 @@ from
     cte
 group by
     flight_id
-order by
-    flight_id asc;
