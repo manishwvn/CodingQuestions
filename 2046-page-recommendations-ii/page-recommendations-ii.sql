@@ -1,27 +1,34 @@
--- Step 1: Create the bidirectional friend list. This is the correct first step.
-WITH Friends AS (
-    SELECT user1_id, user2_id FROM Friendship
+WITH t1 AS (
+    SELECT
+        user1_id user_id,
+        user2_id friend_id
+    FROM
+        Friendship
     UNION
-    SELECT user2_id, user1_id FROM Friendship
+    SELECT
+        user2_id user_id,
+        user1_id friend_id
+    FROM
+        Friendship
 )
--- Step 2: Join friends to the pages they like, filter, and aggregate in one step.
 SELECT
-    f.user1_id AS user_id,
-    l.page_id,
-    COUNT(*) AS friends_likes
+    t1.user_id,
+    l1.page_id,
+    COUNT(1) friends_likes
 FROM
-    Friends f
+    t1
 JOIN
-    Likes l ON f.user2_id = l.user_id -- Find pages liked by the friend (f.user2_id)
+    Likes l1
+ON
+    t1.friend_id = l1.user_id
 LEFT JOIN
-    -- Use an ANTI-JOIN to check if the user (f.user1_id) already likes the page
-    Likes user_likes ON f.user1_id = user_likes.user_id AND l.page_id = user_likes.page_id
+    Likes l2
+ON
+    t1.user_id = l2.user_id
+AND
+    l2.page_id = l1.page_id
 WHERE
-    -- This condition keeps only the rows where the user does NOT already like the page
-    user_likes.user_id IS NULL
+    l2.page_id IS NULL
 GROUP BY
-    f.user1_id,
-    l.page_id
-ORDER BY
-    f.user1_id,
-    l.page_id;
+    t1.user_id,
+    l1.page_id
