@@ -6,7 +6,7 @@ with distinct_points as(
         p2.y as y2
     from
         point2d p1
-    cross join
+    join
         point2d p2
     where
         (p1.x, p1.y) != (p2.x, p2.y))
