@@ -1,21 +1,20 @@
-WITH Bins AS (
-    SELECT '[0-5>' AS bin UNION ALL
-    SELECT '[5-10>' AS bin UNION ALL
-    SELECT '[10-15>' AS bin UNION ALL
-    SELECT '15 or more' AS bin
+WITH cte AS (
+    SELECT duration/60 AS mins
+    FROM sessions
 )
-SELECT
-    b.bin,
-    COALESCE(COUNT(s.session_id), 0) AS total
-FROM
-    Bins b
-LEFT JOIN
-    Sessions s ON
-        CASE
-            WHEN s.duration < 300 THEN '[0-5>'
-            WHEN s.duration >= 300 AND s.duration < 600 THEN '[5-10>'
-            WHEN s.duration >= 600 AND s.duration < 900 THEN '[10-15>'
-            ELSE '15 or more'
-        END = b.bin
-GROUP BY
-    b.bin;
+
+SELECT '[0-5>' AS bin,
+       SUM(CASE WHEN mins<5 THEN 1 ELSE 0 END) AS total
+FROM cte
+UNION ALL
+SELECT '[5-10>' AS bin,
+       SUM(CASE WHEN mins>=5 AND mins<10 THEN 1 ELSE 0 END) AS total
+FROM cte
+UNION ALL
+SELECT '[10-15>' AS bin,
+       SUM(CASE WHEN mins>=10 AND mins<15 THEN 1 ELSE 0 END) AS total
+FROM cte
+UNION ALL
+SELECT '15 or more' AS bin,
+       SUM(CASE WHEN mins>=15 THEN 1 ELSE 0 END) AS total
+FROM cte
