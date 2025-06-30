@@ -1,7 +1,7 @@
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
   RETURN (
-      select distinct coalesce(salary, null) from
+      select distinct coalesce(salary) from
       (
         select
             *,
