@@ -1,39 +1,19 @@
-WITH departcount AS (
-    SELECT
-        departure_airport AS airport_id,
-        SUM(flights_count) AS departs
-    FROM
-        flights
-    GROUP BY
-        1
+/*
+1. cte union all departure_airport ,arrival_airport flights 
+similar to friend request problem make it together
+2. id, sum(flight count), rank and order by desc
+3. come out and make rnk=1
+*/
+with cte as(
+    select departure_airport id, flights_count from Flights 
+    union all
+    select arrival_airport  id, flights_count from Flights
 ),
-arrivecount AS (
-    SELECT
-        arrival_airport AS airport_id,
-        SUM(flights_count) AS arrives
-    FROM
-        flights
-    GROUP BY
-        1
-),
-airport_traffic AS ( -- New CTE to combine and calculate total traffic
-SELECT
-    COALESCE(d.airport_id, a.airport_id) AS airport_id,
-    COALESCE(d.departs, 0) + COALESCE(a.arrives, 0) AS total_traffic
-FROM
-    departcount d
-LEFT JOIN
-    arrivecount a ON d.airport_id = a.airport_id
-UNION ALL
-SELECT
-    COALESCE(d.airport_id, a.airport_id) AS airport_id,
-    COALESCE(d.departs, 0) + COALESCE(a.arrives, 0) AS total_traffic
-FROM
-    departcount d
-RIGHT JOIN
-    arrivecount a ON d.airport_id = a.airport_id
-WHERE d.airport_id IS NULL
+cta as(
+    select id ,sum(flights_count ) ,rank() over(order by sum(flights_count )desc)rnk
+    from cte
+    group by 1
 )
-SELECT airport_id
-FROM airport_traffic
-WHERE total_traffic = (SELECT MAX(total_traffic) FROM airport_traffic); -- Filter for max traffic
+select id airport_id 
+from cta
+where rnk=1
