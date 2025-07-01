@@ -18,4 +18,6 @@ where
 and
     activity_date between date_sub('2019-06-30', interval 90 day) and date('2019-06-30')
 group by
-    login_date;
+    login_date
+having
+    user_count > 0;
