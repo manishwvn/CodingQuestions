@@ -1,26 +1,19 @@
-WITH E AS (SELECT
-        DEPARTMENTID,
-        NAME, 
-        SALARY,
-        DENSE_RANK() OVER(PARTITION BY DEPARTMENTID ORDER BY SALARY DESC) AS RNK
-     FROM 
-        EMPLOYEE
+select
+    department as Department,
+    name as Employee,
+    salary as Salary 
+from
+    (select
+        e.*, d.name as department, 
+        dense_rank() over(partition by d.id order by e.salary desc) as rnk
+    from
+        department d 
+    join
+        employee e 
+    on
+        d.id = e.departmentId
+    ) t
+where
+    t.rnk <=3;
 
-)
 
-
-SELECT
-    D.NAME AS 'Department',
-    E.NAME AS 'Employee',
-    E.SALARY AS 'Salary'
-    
-FROM
-    E
-
-JOIN
-    DEPARTMENT D
-ON 
-    E.DEPARTMENTID = D.ID
-
-WHERE
-    RNK <= 3;
