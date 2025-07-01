@@ -35,6 +35,7 @@ from
 where
     year(date) = 2019
 group by
-    grp, state
+    state, grp
 order by
     start_date;
+
