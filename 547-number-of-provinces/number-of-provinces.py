@@ -1,29 +1,19 @@
 class Solution:
-    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+    def findCircleNum(self, isConnected: list[list[int]]) -> int:
         n = len(isConnected)
-    
-        graph = {}
-        for i in range(n):
-            graph[i] = []
-            for j in range(n):
-                if isConnected[i][j] == 1:
-                    graph[i].append(j)
+        visited = [False] * n
 
-        print(graph)
+        def dfs(city):
+            for neighbor in range(n):
+                if isConnected[city][neighbor] == 1 and not visited[neighbor]:
+                    visited[neighbor] = True
+                    dfs(neighbor)
 
-        visited = set()
-        stack = []
         provinces = 0
-
-        for i in range(n):
-            if i not in visited:
-                stack.append(i)
-                while stack:
-                    node = stack.pop()
-                    if node not in visited:
-                        visited.add(node)
-                        stack.extend(graph[node])
+        for city in range(n):
+            if not visited[city]:
+                visited[city] = True
+                dfs(city)
                 provinces += 1
 
         return provinces
-        
